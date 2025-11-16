@@ -61,7 +61,7 @@ export function AboutSection() {
           >
             <h2 className="text-4xl md:text-5xl font-bold">{getTranslation(currentLang, "about.title")}</h2>
             <p className="text-lg text-muted-foreground text-pretty max-w-2xl mx-auto">
-              {getTranslation(currentLang, "about.description")}
+              {getTranslation(currentLang, "about.description")}  
             </p>
           </motion.div>
 
