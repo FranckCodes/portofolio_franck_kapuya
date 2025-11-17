@@ -1,23 +1,54 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { motion, useInView } from "framer-motion"
-import { GraduationCap, Award, Calendar, MapPin, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react"
+import { motion, useInView, AnimatePresence } from "framer-motion"
+import { GraduationCap, Award, Calendar, MapPin, ArrowLeft, ChevronLeft, ChevronRight, Download, X } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { getTranslation, type Language } from "@/lib/i18n"
 import { educationData } from "@/lib/data"
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
+import Image from "next/image"
 
 type Category = "all" | "marketing" | "project-management" | "ai" | "development"
 
 const ITEMS_PER_PAGE = 6
 
+// Liste des images de certifications
+const certificationImages = [
+  "Screenshot_2023-12-31-22-07-03-791_com.whatsapp.w4b.jpg",
+  "Screenshot_2023-12-31-22-07-35-679_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-08-03-882_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-09-04-876_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-09-31-421_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-10-17-098_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-11-25-928_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-12-00-993_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-12-30-240_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-13-01-857_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-13-37-340_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-14-06-284_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-14-30-093_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-15-20-142_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-15-42-808_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-16-18-353_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-16-48-005_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-17-07-879_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-17-22-536_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-17-35-956_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-17-49-545_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-18-01-408_cn.wps.xiaomi.abroad.lite.jpg",
+  "Screenshot_2023-12-31-22-18-12-902_cn.wps.xiaomi.abroad.lite.jpg",
+]
+
 export default function CertificationsPage() {
   const [currentLang, setCurrentLang] = useState<Language>("en")
   const [selectedCategory, setSelectedCategory] = useState<Category>("all")
   const [currentPage, setCurrentPage] = useState(1)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
@@ -37,6 +68,23 @@ export default function CertificationsPage() {
     setCurrentPage(1)
   }, [selectedCategory])
 
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % certificationImages.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + certificationImages.length) % certificationImages.length)
+  }
+
+  const handleDownload = (imageName: string) => {
+    const link = document.createElement("a")
+    link.href = `/certifications/${imageName}`
+    link.download = imageName
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   const cardVariants = {
     hidden: { opacity: 0, x: -50 },
     visible: (i: number) => ({
@@ -45,7 +93,7 @@ export default function CertificationsPage() {
       transition: {
         delay: i * 0.1,
         duration: 0.6,
-        ease: "easeOut",
+        ease: [0.4, 0, 0.2, 1] as const,
       },
     }),
   }
@@ -95,6 +143,18 @@ export default function CertificationsPage() {
                 </h1>
               </div>
             </motion.div>
+
+            <Tabs defaultValue="informations" className="w-full">
+              <TabsList className="grid w-full bg-transparent max-w-md mx-auto grid-cols-2 mb-8">
+                <TabsTrigger value="informations">
+                  {currentLang === "en" ? "Information" : "Informations"}
+                </TabsTrigger>
+                <TabsTrigger value="certificates">
+                  {currentLang === "en" ? "Certificates" : "Certificats"}
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="informations" className="space-y-12">
 
             {/* Degrees Section */}
             <div className="space-y-6" ref={ref}>
@@ -302,10 +362,156 @@ export default function CertificationsPage() {
                   {getTranslation(currentLang, "education.pagination.of")} {totalPages}
                 </motion.p>
               )}
-            </div>
+              </div>
+              </TabsContent>
+
+              <TabsContent value="certificates" className="space-y-8">
+                <motion.div
+                  className="space-y-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h2 className="text-3xl font-bold text-center">
+                    {currentLang === "en" ? "Certificates Gallery" : "Galerie de Certificats"}
+                  </h2>
+
+                  {/* Carrousel */}
+                  <div className="relative max-w-4xl mx-auto">
+                    <Card className="overflow-hidden">
+                      <CardContent className="p-0">
+                        <div className="relative aspect-[4/3] bg-muted">
+                          <AnimatePresence mode="wait">
+                            <motion.div
+                              key={currentImageIndex}
+                              initial={{ opacity: 0, x: 100 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -100 }}
+                              transition={{ duration: 0.3 }}
+                              className="absolute inset-0"
+                            >
+                              <Image
+                                src={`/certifications/${certificationImages[currentImageIndex]}`}
+                                alt={`Certificat ${currentImageIndex + 1}`}
+                                fill
+                                className="object-contain"
+                                onClick={() => setSelectedImage(certificationImages[currentImageIndex])}
+                              />
+                            </motion.div>
+                          </AnimatePresence>
+
+                          {/* Navigation Buttons */}
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-background/80 hover:bg-background"
+                            onClick={prevImage}
+                          >
+                            <ChevronLeft className="h-6 w-6" />
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-background/80 hover:bg-background"
+                            onClick={nextImage}
+                          >
+                            <ChevronRight className="h-6 w-6" />
+                          </Button>
+
+                          {/* Download Button */}
+                          <Button
+                            variant="default"
+                            className="absolute bottom-4 right-4 z-10 gap-2"
+                            onClick={() => handleDownload(certificationImages[currentImageIndex])}
+                          >
+                            <Download className="h-4 w-4" />
+                            {currentLang === "en" ? "Download" : "Télécharger"}
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Image Counter */}
+                    <div className="text-center mt-4 text-sm text-muted-foreground">
+                      {currentImageIndex + 1} / {certificationImages.length}
+                    </div>
+
+                    {/* Thumbnails */}
+                    <div className="mt-6 flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                      {certificationImages.map((image, index) => (
+                        <motion.button
+                          key={image}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                            index === currentImageIndex
+                              ? "border-accent scale-105"
+                              : "border-transparent opacity-60 hover:opacity-100"
+                          }`}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <Image
+                            src={`/certifications/${image}`}
+                            alt={`Thumbnail ${index + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </motion.button>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </main>
+
+      {/* Modal pour image agrandie */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              className="relative max-w-5xl max-h-[90vh] w-full h-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-4 right-4 z-10 bg-background/80 hover:bg-background"
+                onClick={() => setSelectedImage(null)}
+              >
+                <X className="h-6 w-6" />
+              </Button>
+              <Image
+                src={`/certifications/${selectedImage}`}
+                alt="Certificat agrandi"
+                fill
+                className="object-contain"
+              />
+              <Button
+                variant="default"
+                className="absolute bottom-4 right-4 z-10 gap-2"
+                onClick={() => {
+                  handleDownload(selectedImage)
+                }}
+              >
+                <Download className="h-4 w-4" />
+                {currentLang === "en" ? "Download" : "Télécharger"}
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
