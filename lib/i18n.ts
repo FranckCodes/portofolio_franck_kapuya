@@ -9,24 +9,93 @@ export const translations = {
   en: {
     nav: {
       home: "Home",
-      about: "About",
-      skills: "Skills",
-      experience: "Experience",
+      method: "Approach",
       projects: "Projects",
-      education: "Education",
+      expertise: "Expertise",
       contact: "Contact",
     },
     hero: {
       greeting: "Hello, I'm",
-      title: "Web Developer & Digital Marketer",
+      title: "Designing reliable systems for controlled decisions.",
       subtitle:
-        "A passionate web developer and digital marketer, expert in frontend and backend development. I create innovative digital solutions with a focus on performance and user experience.",
-      cta: "Get In Touch",
+        "I support organizations and businesses in structuring their information systems, analyzing their data, and optimizing their processes.",
+      cta: "Discuss Your Project",
       viewWork: "View My Work",
       stats: {
         experience: "Years Experience",
         projects: "Projects Completed",
         technologies: "Technologies",
+      },
+    },
+    problem: {
+      title: "Your systems should support your growth, not slow it down.",
+      description:
+        "Manual processes, scattered data, lack of visibility, decisions based on intuition... A poorly structured system creates uncertainty. I design clear, robust, and scalable architectures.",
+      items: {
+        manual: "Manual processes",
+        dispersed: "Scattered data",
+        visibility: "Lack of visibility",
+        intuition: "Intuition-based decisions",
+      },
+    },
+    method: {
+      title: "A structured approach in three steps.",
+      approach: "Clear objectives. Strategic approach. Mastered decisions.",
+      steps: {
+        analysis: {
+          title: "Needs & Flow Analysis",
+          description: "Understanding your challenges and mapping your current processes to identify optimization opportunities.",
+        },
+        implementation: {
+          title: "System Design & Implementation",
+          description: "Building robust, scalable solutions tailored to your specific requirements and business context.",
+        },
+        optimization: {
+          title: "Monitoring, Optimization & Reliability",
+          description: "Continuous improvement and system reliability to ensure long-term performance and stability.",
+        },
+      },
+    },
+    expertise: {
+      title: "Areas of Expertise",
+      areas: {
+        systems: {
+          title: "Information Systems Design",
+          description: "Architecture and structuring of reliable and scalable information systems.",
+        },
+        data: {
+          title: "Data Analysis & Visualization",
+          description: "Transforming raw data into actionable insights for informed decision-making.",
+        },
+        development: {
+          title: "Web Application Development",
+          description: "Creating modern, performant web applications with optimal user experience.",
+        },
+        infrastructure: {
+          title: "Maintenance & IT Infrastructure",
+          description: "Ensuring system reliability, security, and continuous operational excellence.",
+        },
+      },
+    },
+    trust: {
+      title: "Why Trust Me?",
+      reasons: {
+        strategic: {
+          title: "Strategic Systems Vision",
+          description: "Ability to see the big picture and design solutions that align with your business goals.",
+        },
+        analytical: {
+          title: "Analytical Rigor",
+          description: "Methodical approach to problem-solving with attention to detail and data-driven decisions.",
+        },
+        experience: {
+          title: "Field Experience",
+          description: "Proven track record across diverse projects and industries, from startups to established organizations.",
+        },
+        results: {
+          title: "Results-Oriented Approach",
+          description: "Focus on delivering measurable outcomes and tangible value for your business.",
+        },
       },
     },
     about: {
@@ -56,7 +125,10 @@ export const translations = {
     },
     projects: {
       title: "Featured Projects",
-      subtitle: "Some of the projects I've worked on",
+      subtitle: "Recent projects with measurable impact",
+      problem: "Problem",
+      solution: "Solution",
+      impact: "Impact",
       viewProject: "View Project",
       seeMore: "See More",
       allProjects: "All Projects",
@@ -86,9 +158,8 @@ export const translations = {
       },
     },
     contact: {
-      title: "Get In Touch",
-      subtitle:
-        "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
+      title: "Ready to structure or modernize your information system?",
+      subtitle: "Let's discuss your project.",
       name: "Name",
       email: "Email",
       message: "Message",
@@ -131,24 +202,93 @@ export const translations = {
   fr: {
     nav: {
       home: "Accueil",
-      about: "À Propos",
-      skills: "Compétences",
-      experience: "Expérience",
+      method: "Approche",
       projects: "Projets",
-      education: "Formation",
+      expertise: "Expertise",
       contact: "Contact",
     },
     hero: {
       greeting: "Bonjour, je suis",
-      title: "Développeur Web & Marketeur Digital",
+      title: "Conception de systèmes fiables pour des décisions maîtrisées.",
       subtitle:
-        "Un développeur web et marketeur digital passionné, expert en développement frontend et backend. Je crée des solutions numériques innovantes avec un accent sur la performance et l'expérience utilisateur.",
-      cta: "Me Contacter",
-      viewWork: "Voir Mon Travail",
+        "J'accompagne organisations et entreprises dans la structuration de leurs systèmes d'information, l'analyse de leurs données et l'optimisation de leurs processus.",
+      cta: "Discuter de votre projet",
+      viewWork: "Voir mes réalisations",
       stats: {
         experience: "Ans d'Expérience",
         projects: "Projets Réalisés",
         technologies: "Technologies",
+      },
+    },
+    problem: {
+      title: "Vos systèmes doivent soutenir votre croissance, pas la freiner.",
+      description:
+        "Processus manuels, données dispersées, manque de visibilité, décisions basées sur l'intuition... Un système mal structuré crée de l'incertitude. Je conçois des architectures claires, robustes et évolutives.",
+      items: {
+        manual: "Processus manuels",
+        dispersed: "Données dispersées",
+        visibility: "Manque de visibilité",
+        intuition: "Décisions intuitives",
+      },
+    },
+    method: {
+      title: "Une approche structurée en trois étapes.",
+      approach: "Objectifs clairs. Approche stratégique. Décisions maîtrisées.",
+      steps: {
+        analysis: {
+          title: "Analyse des besoins et des flux",
+          description: "Comprendre vos défis et cartographier vos processus actuels pour identifier les opportunités d'optimisation.",
+        },
+        implementation: {
+          title: "Conception et mise en place du système",
+          description: "Construction de solutions robustes et évolutives adaptées à vos besoins spécifiques et votre contexte métier.",
+        },
+        optimization: {
+          title: "Suivi, optimisation et fiabilisation",
+          description: "Amélioration continue et fiabilité du système pour assurer performance et stabilité à long terme.",
+        },
+      },
+    },
+    expertise: {
+      title: "Domaines d'Expertise",
+      areas: {
+        systems: {
+          title: "Conception de SI",
+          description: "Architecture et structuration de systèmes d'information fiables et évolutifs.",
+        },
+        data: {
+          title: "Analyse & visualisation de données",
+          description: "Transformation des données brutes en insights actionnables pour une prise de décision éclairée.",
+        },
+        development: {
+          title: "Développement d'applications web",
+          description: "Création d'applications web modernes et performantes avec une expérience utilisateur optimale.",
+        },
+        infrastructure: {
+          title: "Maintenance & infrastructure IT",
+          description: "Assurance de la fiabilité, sécurité et excellence opérationnelle continue des systèmes.",
+        },
+      },
+    },
+    trust: {
+      title: "Pourquoi me faire confiance ?",
+      reasons: {
+        strategic: {
+          title: "Vision stratégique des systèmes",
+          description: "Capacité à voir la vue d'ensemble et concevoir des solutions alignées avec vos objectifs métier.",
+        },
+        analytical: {
+          title: "Rigueur analytique",
+          description: "Approche méthodique de résolution de problèmes avec attention aux détails et décisions basées sur les données.",
+        },
+        experience: {
+          title: "Expérience terrain",
+          description: "Parcours éprouvé à travers divers projets et secteurs, des startups aux organisations établies.",
+        },
+        results: {
+          title: "Approche orientée résultat",
+          description: "Focus sur la livraison de résultats mesurables et de valeur tangible pour votre entreprise.",
+        },
       },
     },
     about: {
@@ -179,7 +319,10 @@ export const translations = {
     },
     projects: {
       title: "Projets Phares",
-      subtitle: "Quelques projets sur lesquels j'ai travaillé",
+      subtitle: "Projets récents avec impact mesurable",
+      problem: "Problème",
+      solution: "Solution",
+      impact: "Impact",
       viewProject: "Voir le Projet",
       seeMore: "Voir Plus",
       allProjects: "Tous les Projets",
@@ -209,9 +352,8 @@ export const translations = {
       },
     },
     contact: {
-      title: "Contactez-Moi",
-      subtitle:
-        "Je suis toujours ouvert à discuter de nouveaux projets, d'idées créatives ou d'opportunités de faire partie de votre vision.",
+      title: "Vous souhaitez structurer ou moderniser votre système d'information ?",
+      subtitle: "Discutons de votre projet.",
       name: "Nom",
       email: "Email",
       message: "Message",
