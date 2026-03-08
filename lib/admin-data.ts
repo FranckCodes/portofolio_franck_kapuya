@@ -47,7 +47,7 @@ export function initializeData() {
         en: "Web Developer & Digital Marketer",
         fr: "Développeur Web & Marketeur Digital",
       },
-      email: "franckkapuya13@gmail.com",
+      email: "contact@franckkapuya.com",
       phone: "+243 827 029 543",
       location: "Kinshasa, Democratic Republic of the Congo",
       github: "https://gitlab.com/franck.kapuya",

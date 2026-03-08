@@ -44,6 +44,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-54DFL2VZ7G"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-54DFL2VZ7G');
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased">
         <Providers>{children}</Providers>
       </body>

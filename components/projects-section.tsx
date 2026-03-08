@@ -93,14 +93,39 @@ export function ProjectsSection() {
                       >
                         {project.title}
                       </motion.h3>
-                      <motion.p
-                        className="text-muted-foreground"
+                      
+                      <motion.div
+                        className="space-y-3 text-sm"
                         initial={{ opacity: 0 }}
                         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                         transition={{ delay: index * 0.2 + 0.4 }}
                       >
-                        {currentLang === "en" ? project.description.en : project.description.fr}
-                      </motion.p>
+                        <div>
+                          <span className="font-semibold text-muted-foreground">
+                            {getTranslation(currentLang, "projects.problem")}:
+                          </span>
+                          <p className="text-muted-foreground mt-1">
+                            {currentLang === "en" ? project.problem.en : project.problem.fr}
+                          </p>
+                        </div>
+                        <div>
+                          <span className="font-semibold text-muted-foreground">
+                            {getTranslation(currentLang, "projects.solution")}:
+                          </span>
+                          <p className="text-muted-foreground mt-1">
+                            {currentLang === "en" ? project.solution.en : project.solution.fr}
+                          </p>
+                        </div>
+                        <div>
+                          <span className="font-semibold text-primary">
+                            {getTranslation(currentLang, "projects.impact")}:
+                          </span>
+                          <p className="text-foreground mt-1">
+                            {currentLang === "en" ? project.impact.en : project.impact.fr}
+                          </p>
+                        </div>
+                      </motion.div>
+
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, i) => (
                           <motion.div

@@ -249,6 +249,18 @@ export const projectsData = [
       en: "Complete academic management web platform for educational institutions with role-based access control",
       fr: "Plateforme web complète de gestion académique pour institutions éducatives avec contrôle d'accès basé sur les rôles",
     },
+    problem: {
+      en: "Manual academic management and lack of centralized system for multiple stakeholders",
+      fr: "Gestion académique manuelle et absence de système centralisé pour plusieurs parties prenantes",
+    },
+    solution: {
+      en: "Comprehensive web platform with role-based permissions for administrators, deans, professors, and students",
+      fr: "Plateforme web complète avec permissions basées sur les rôles pour administrateurs, doyens, professeurs et étudiants",
+    },
+    impact: {
+      en: "Improved operational efficiency, better data traceability, and streamlined academic processes",
+      fr: "Efficacité opérationnelle améliorée, meilleure traçabilité des données et processus académiques rationalisés",
+    },
     image: "/projects/pathacademia.jpg",
     technologies: ["Next.js", "React", "TypeScript", "Laravel", "SQL"],
     link: "#",
@@ -260,16 +272,40 @@ export const projectsData = [
       en: "Progressive Web App for students to manage academic information, accessible via browser or installable on devices",
       fr: "Application Web Progressive pour étudiants afin de gérer les informations académiques, accessible via navigateur ou installable sur appareils",
     },
+    problem: {
+      en: "Students needed mobile access to academic information across different devices",
+      fr: "Les étudiants avaient besoin d'un accès mobile aux informations académiques sur différents appareils",
+    },
+    solution: {
+      en: "Progressive Web App offering fluid, installable experience on all device types",
+      fr: "Application Web Progressive offrant une expérience fluide et installable sur tous types d'appareils",
+    },
+    impact: {
+      en: "Enhanced student engagement and 24/7 access to academic resources",
+      fr: "Engagement étudiant amélioré et accès 24/7 aux ressources académiques",
+    },
     image: "/projects/campus-rdc.jpg",
     technologies: ["Next.js", "PWA", "React", "TypeScript"],
     link: "#",
   },
   {
     id: 3,
-    title: "Blue RDC",
+    title: "BlueRDC",
     description: {
-      en: "Digital agency website specialized in digital transformation services, web development, and innovation hub for tech mentorship with modern UI/UX",
-      fr: "Site web d'agence digitale spécialisée dans les services de transformation digitale, développement web et hub d'innovation pour mentorat technologique avec UI/UX moderne",
+      en: "Digitalization and centralization of operational flows with structured and secure web application",
+      fr: "Digitalisation et centralisation des flux opérationnels avec application web structurée et sécurisée",
+    },
+    problem: {
+      en: "Operational tracking digitalization and data centralization needs",
+      fr: "Besoin de digitalisation du suivi opérationnel et de centralisation des données",
+    },
+    solution: {
+      en: "Implementation of a structured and secure web application",
+      fr: "Mise en place d'une application web structurée et sécurisée",
+    },
+    impact: {
+      en: "Improved traceability and reduction of manual errors",
+      fr: "Amélioration de la traçabilité et réduction des erreurs manuelles",
     },
     image: "/projects/bluerdc.jpg",
     technologies: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
@@ -282,30 +318,66 @@ export const projectsData = [
       en: "Internal business management application with client management, invoicing, and equipment tracking modules",
       fr: "Application de gestion d'entreprise interne avec modules de gestion clients, facturation et suivi d'équipements",
     },
+    problem: {
+      en: "Operational tracking digitalization and data centralization needs",
+      fr: "Besoin de digitalisation du suivi opérationnel et de centralisation des données",
+    },
+    solution: {
+      en: "Secure web application with integrated modules for client, invoice, and equipment management",
+      fr: "Application web sécurisée avec modules intégrés pour la gestion clients, factures et équipements",
+    },
+    impact: {
+      en: "Better traceability and reduction of manual errors",
+      fr: "Meilleure traçabilité et réduction des erreurs manuelles",
+    },
     image: "/projects/foshekin-travel.jpg",
     technologies: ["Laravel", "PHP", "SQL", "Bootstrap"],
     link: "#",
   },
   {
     id: 5,
-    title: "Art Exhibition Platform",
-    description: {
-      en: "E-commerce web platform for artists to showcase artwork with WhatsApp integration for direct communication",
-      fr: "Plateforme web e-commerce pour artistes afin de présenter leurs œuvres avec intégration WhatsApp pour communication directe",
-    },
-    image: "/projects/art-exhibition.jpg",
-    technologies: ["HTML", "CSS", "JavaScript", "Laravel"],
-    link: "#",
-  },
-  {
-    id: 6,
     title: "Help Desk",
     description: {
       en: "Technical support management system for PathAcademia and Campus RDC platforms with ticket tracking, performance analytics, and satisfaction metrics",
       fr: "Système de gestion de support technique pour les plateformes PathAcademia et Campus RDC avec suivi des tickets, analyses de performance et métriques de satisfaction",
     },
+    problem: {
+      en: "Need for structured technical support and issue tracking system",
+      fr: "Besoin d'un système structuré de support technique et de suivi des problèmes",
+    },
+    solution: {
+      en: "Comprehensive help desk system with ticket management and analytics",
+      fr: "Système de help desk complet avec gestion des tickets et analyses",
+    },
+    impact: {
+      en: "Improved response times and user satisfaction tracking",
+      fr: "Temps de réponse améliorés et suivi de la satisfaction utilisateur",
+    },
     image: "/projects/help-desk.jpg",
     technologies: ["Next.js", "React", "TypeScript", "Laravel", "SQL"],
+    link: "#",
+  },
+  {
+    id: 6,
+    title: "Art Exhibition Platform",
+    description: {
+      en: "E-commerce web platform for artists to showcase artwork with WhatsApp integration for direct communication",
+      fr: "Plateforme web e-commerce pour artistes afin de présenter leurs œuvres avec intégration WhatsApp pour communication directe",
+    },
+    problem: {
+      en: "Artists needed online presence to promote and sell their artwork",
+      fr: "Les artistes avaient besoin d'une présence en ligne pour promouvoir et vendre leurs œuvres",
+    },
+    solution: {
+      en: "E-commerce platform with WhatsApp integration for seamless artist-client communication",
+      fr: "Plateforme e-commerce avec intégration WhatsApp pour communication fluide artiste-client",
+    },
+    impact: {
+      en: "Expanded artist reach and simplified sales process",
+      fr: "Portée des artistes élargie et processus de vente simplifié",
+    },
+    image: "/projects/art-exhibition.jpg",
+    technologies: ["HTML", "CSS", "JavaScript", "Laravel"],
     link: "#",
   },
 ]
