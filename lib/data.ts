@@ -290,22 +290,22 @@ export const projectsData = [
   },
   {
     id: 3,
-    title: "Blue RDC",
+    title: "BlueRDC",
     description: {
-      en: "Digital agency website specialized in digital transformation services, web development, and innovation hub for tech mentorship with modern UI/UX",
-      fr: "Site web d'agence digitale spécialisée dans les services de transformation digitale, développement web et hub d'innovation pour mentorat technologique avec UI/UX moderne",
+      en: "Digitalization and centralization of operational flows with structured and secure web application",
+      fr: "Digitalisation et centralisation des flux opérationnels avec application web structurée et sécurisée",
     },
     problem: {
-      en: "Need for strong digital presence to showcase services and attract clients",
-      fr: "Besoin d'une forte présence digitale pour présenter les services et attirer les clients",
+      en: "Operational tracking digitalization and data centralization needs",
+      fr: "Besoin de digitalisation du suivi opérationnel et de centralisation des données",
     },
     solution: {
-      en: "Modern, responsive website with compelling UI/UX and clear service presentation",
-      fr: "Site web moderne et responsive avec UI/UX convaincante et présentation claire des services",
+      en: "Implementation of a structured and secure web application",
+      fr: "Mise en place d'une application web structurée et sécurisée",
     },
     impact: {
-      en: "Increased brand visibility and improved client acquisition",
-      fr: "Visibilité de marque accrue et acquisition client améliorée",
+      en: "Improved traceability and reduction of manual errors",
+      fr: "Amélioration de la traçabilité et réduction des erreurs manuelles",
     },
     image: "/projects/bluerdc.jpg",
     technologies: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
@@ -336,29 +336,6 @@ export const projectsData = [
   },
   {
     id: 5,
-    title: "Art Exhibition Platform",
-    description: {
-      en: "E-commerce web platform for artists to showcase artwork with WhatsApp integration for direct communication",
-      fr: "Plateforme web e-commerce pour artistes afin de présenter leurs œuvres avec intégration WhatsApp pour communication directe",
-    },
-    problem: {
-      en: "Artists needed online presence to promote and sell their artwork",
-      fr: "Les artistes avaient besoin d'une présence en ligne pour promouvoir et vendre leurs œuvres",
-    },
-    solution: {
-      en: "E-commerce platform with WhatsApp integration for seamless artist-client communication",
-      fr: "Plateforme e-commerce avec intégration WhatsApp pour communication fluide artiste-client",
-    },
-    impact: {
-      en: "Expanded artist reach and simplified sales process",
-      fr: "Portée des artistes élargie et processus de vente simplifié",
-    },
-    image: "/projects/art-exhibition.jpg",
-    technologies: ["HTML", "CSS", "JavaScript", "Laravel"],
-    link: "#",
-  },
-  {
-    id: 6,
     title: "Help Desk",
     description: {
       en: "Technical support management system for PathAcademia and Campus RDC platforms with ticket tracking, performance analytics, and satisfaction metrics",
@@ -378,6 +355,29 @@ export const projectsData = [
     },
     image: "/projects/help-desk.jpg",
     technologies: ["Next.js", "React", "TypeScript", "Laravel", "SQL"],
+    link: "#",
+  },
+  {
+    id: 6,
+    title: "Art Exhibition Platform",
+    description: {
+      en: "E-commerce web platform for artists to showcase artwork with WhatsApp integration for direct communication",
+      fr: "Plateforme web e-commerce pour artistes afin de présenter leurs œuvres avec intégration WhatsApp pour communication directe",
+    },
+    problem: {
+      en: "Artists needed online presence to promote and sell their artwork",
+      fr: "Les artistes avaient besoin d'une présence en ligne pour promouvoir et vendre leurs œuvres",
+    },
+    solution: {
+      en: "E-commerce platform with WhatsApp integration for seamless artist-client communication",
+      fr: "Plateforme e-commerce avec intégration WhatsApp pour communication fluide artiste-client",
+    },
+    impact: {
+      en: "Expanded artist reach and simplified sales process",
+      fr: "Portée des artistes élargie et processus de vente simplifié",
+    },
+    image: "/projects/art-exhibition.jpg",
+    technologies: ["HTML", "CSS", "JavaScript", "Laravel"],
     link: "#",
   },
 ]

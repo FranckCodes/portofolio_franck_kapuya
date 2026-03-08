@@ -16,9 +16,11 @@ export const translations = {
     },
     hero: {
       greeting: "Hello, I'm",
-      title: "Designing reliable systems for controlled decisions.",
+      title: "Reliable systems for controlled decisions.",
       subtitle:
-        "I support organizations and businesses in structuring their information systems, analyzing their data, and optimizing their processes.",
+        "I support businesses and organizations in structuring information systems, strategic data analysis, and developing reliable and scalable multi-platform solutions.",
+      credibility:
+        "Projects delivered for academic platforms, organizations, and operational management systems.",
       cta: "Discuss Your Project",
       viewWork: "View My Work",
       stats: {
@@ -27,32 +29,42 @@ export const translations = {
         technologies: "Technologies",
       },
     },
-    problem: {
-      title: "Your systems should support your growth, not slow it down.",
+    aboutIntro: {
       description:
-        "Manual processes, scattered data, lack of visibility, decisions based on intuition... A poorly structured system creates uncertainty. I design clear, robust, and scalable architectures.",
+        "I am Franck KAPUYA MBALA, information systems analyst and architect, data analyst and multi-platform consultant. I support businesses and organizations in structuring reliable systems, strategic data analysis, and operational process optimization.",
+      learnMore: "Learn More",
+    },
+    problem: {
+      title: "When information is poorly structured, decision-making becomes risky.",
+      description:
+        "Scattered data, manual processes, lack of visibility, repetitive errors... A poorly designed information system hinders performance and increases uncertainty. Reliability is not a luxury. It's a strategic necessity.",
       items: {
         manual: "Manual processes",
         dispersed: "Scattered data",
         visibility: "Lack of visibility",
-        intuition: "Intuition-based decisions",
+        intuition: "Repetitive errors",
       },
     },
+    solution: {
+      title: "A structured, results-oriented approach.",
+      description:
+        "Every project begins with a rigorous analysis of needs and information flows. I then design an adapted, scalable, and secure architecture, enabling clear and efficient data management. The goal is simple: transform complexity into operational clarity.",
+    },
     method: {
-      title: "A structured approach in three steps.",
-      approach: "Clear objectives. Strategic approach. Mastered decisions.",
+      title: "My Method",
+      approach: "Clarity. Rigor. Performance.",
       steps: {
         analysis: {
-          title: "Needs & Flow Analysis",
-          description: "Understanding your challenges and mapping your current processes to identify optimization opportunities.",
+          title: "Analysis and flow mapping",
+          description: "Understanding your challenges and mapping information flows to identify optimization opportunities.",
         },
         implementation: {
-          title: "System Design & Implementation",
-          description: "Building robust, scalable solutions tailored to your specific requirements and business context.",
+          title: "System design and tool integration",
+          description: "Building robust, scalable solutions tailored to your specific requirements.",
         },
         optimization: {
-          title: "Monitoring, Optimization & Reliability",
-          description: "Continuous improvement and system reliability to ensure long-term performance and stability.",
+          title: "Continuous optimization and data security",
+          description: "Ensuring long-term performance, reliability, and data protection.",
         },
       },
     },
@@ -68,8 +80,8 @@ export const translations = {
           description: "Transforming raw data into actionable insights for informed decision-making.",
         },
         development: {
-          title: "Web Application Development",
-          description: "Creating modern, performant web applications with optimal user experience.",
+          title: "Multi-Platform Application Development",
+          description: "Creating high-performance, fluid applications accessible on web, mobile, and desktop, with optimal user experience.",
         },
         infrastructure: {
           title: "Maintenance & IT Infrastructure",
@@ -78,7 +90,7 @@ export const translations = {
       },
     },
     trust: {
-      title: "Why Trust Me?",
+      title: "Why Work With Me?",
       reasons: {
         strategic: {
           title: "Strategic Systems Vision",
@@ -93,7 +105,7 @@ export const translations = {
           description: "Proven track record across diverse projects and industries, from startups to established organizations.",
         },
         results: {
-          title: "Results-Oriented Approach",
+          title: "Performance-Oriented Approach",
           description: "Focus on delivering measurable outcomes and tangible value for your business.",
         },
       },
@@ -124,8 +136,8 @@ export const translations = {
       responsibilities: "Key Responsibilities",
     },
     projects: {
-      title: "Featured Projects",
-      subtitle: "Recent projects with measurable impact",
+      title: "Recent Projects",
+      subtitle: "Concrete achievements with measurable impact",
       problem: "Problem",
       solution: "Solution",
       impact: "Impact",
@@ -159,18 +171,34 @@ export const translations = {
     },
     contact: {
       title: "Ready to structure or modernize your information system?",
-      subtitle: "Let's discuss your project.",
+      subtitle: "Contact me for an analysis of your needs and a tailored proposal.",
       name: "Name",
       email: "Email",
       message: "Message",
-      send: "Send Message",
+      send: "Schedule an Exchange",
       or: "Or reach me directly at",
       location: "Kinshasa, Democratic Republic of the Congo",
       availability: "Open to remote work",
     },
+    shop: {
+      title: "My Shop",
+      description: "Discover my selection of reliable equipment for your IT and personal projects.",
+      cta: "Visit the Shop",
+    },
     footer: {
       rights: "All rights reserved.",
       built: "Built with Next.js and Tailwind CSS",
+      aboutTitle: "Who Am I?",
+      aboutText:
+        "I am Franck KAPUYA MBALA, information systems analyst and architect, data analyst and multi-platform consultant. I support businesses and organizations in structuring reliable systems and optimizing operational processes.",
+      aboutLink: "Learn More",
+      contactTitle: "Contact",
+      shopTitle: "Shop",
+      shopText: "Discover my selection of reliable equipment",
+      shopLink: "Visit the Shop",
+      linksTitle: "Quick Links",
+      portfolio: "Portfolio",
+      scheduleCall: "Schedule an Exchange",
     },
     admin: {
       dashboard: "Admin Dashboard",
@@ -209,9 +237,11 @@ export const translations = {
     },
     hero: {
       greeting: "Bonjour, je suis",
-      title: "Conception de systèmes fiables pour des décisions maîtrisées.",
+      title: "Des systèmes fiables pour des décisions maîtrisées.",
       subtitle:
-        "J'accompagne organisations et entreprises dans la structuration de leurs systèmes d'information, l'analyse de leurs données et l'optimisation de leurs processus.",
+        "J'accompagne entreprises et organisations dans la structuration de systèmes d'information, l'analyse stratégique des données et le développement de solutions multi-plateformes fiables et évolutives.",
+      credibility:
+        "Projets réalisés pour plateformes académiques, organisations et systèmes de gestion opérationnelle.",
       cta: "Discuter de votre projet",
       viewWork: "Voir mes réalisations",
       stats: {
@@ -220,32 +250,42 @@ export const translations = {
         technologies: "Technologies",
       },
     },
-    problem: {
-      title: "Vos systèmes doivent soutenir votre croissance, pas la freiner.",
+    aboutIntro: {
       description:
-        "Processus manuels, données dispersées, manque de visibilité, décisions basées sur l'intuition... Un système mal structuré crée de l'incertitude. Je conçois des architectures claires, robustes et évolutives.",
+        "Je suis Franck KAPUYA MBALA, analyste et architecte de systèmes d'information, data analyst et consultant multi-plateformes. J'accompagne entreprises et organisations dans la structuration de systèmes fiables, l'analyse stratégique des données et l'optimisation des processus opérationnels.",
+      learnMore: "En savoir plus",
+    },
+    problem: {
+      title: "Quand l'information est mal structurée, la décision devient risquée.",
+      description:
+        "Données dispersées, processus manuels, manque de visibilité, erreurs répétitives... Un système d'information mal conçu freine la performance et augmente l'incertitude. La fiabilité n'est pas un luxe. C'est une nécessité stratégique.",
       items: {
         manual: "Processus manuels",
         dispersed: "Données dispersées",
         visibility: "Manque de visibilité",
-        intuition: "Décisions intuitives",
+        intuition: "Erreurs répétitives",
       },
     },
+    solution: {
+      title: "Une approche structurée et orientée résultats.",
+      description:
+        "Chaque projet commence par une analyse rigoureuse des besoins et des flux d'information. Je conçois ensuite une architecture adaptée, évolutive et sécurisée, permettant une gestion claire et efficace des données. L'objectif est simple : transformer la complexité en clarté opérationnelle.",
+    },
     method: {
-      title: "Une approche structurée en trois étapes.",
-      approach: "Objectifs clairs. Approche stratégique. Décisions maîtrisées.",
+      title: "Ma méthode",
+      approach: "Clarté. Rigueur. Performance.",
       steps: {
         analysis: {
-          title: "Analyse des besoins et des flux",
-          description: "Comprendre vos défis et cartographier vos processus actuels pour identifier les opportunités d'optimisation.",
+          title: "Analyse et cartographie des flux",
+          description: "Comprendre vos défis et cartographier les flux d'information pour identifier les opportunités d'optimisation.",
         },
         implementation: {
-          title: "Conception et mise en place du système",
-          description: "Construction de solutions robustes et évolutives adaptées à vos besoins spécifiques et votre contexte métier.",
+          title: "Conception du système et intégration des outils",
+          description: "Construction de solutions robustes et évolutives adaptées à vos besoins spécifiques.",
         },
         optimization: {
-          title: "Suivi, optimisation et fiabilisation",
-          description: "Amélioration continue et fiabilité du système pour assurer performance et stabilité à long terme.",
+          title: "Optimisation continue et sécurisation des données",
+          description: "Assurer performance à long terme, fiabilité et protection des données.",
         },
       },
     },
@@ -261,8 +301,8 @@ export const translations = {
           description: "Transformation des données brutes en insights actionnables pour une prise de décision éclairée.",
         },
         development: {
-          title: "Développement d'applications web",
-          description: "Création d'applications web modernes et performantes avec une expérience utilisateur optimale.",
+          title: "Développement d'applications multi-plateformes",
+          description: "Création d'applications performantes et fluides, accessibles sur web, mobile et desktop, avec une expérience utilisateur optimale.",
         },
         infrastructure: {
           title: "Maintenance & infrastructure IT",
@@ -271,7 +311,7 @@ export const translations = {
       },
     },
     trust: {
-      title: "Pourquoi me faire confiance ?",
+      title: "Pourquoi travailler avec moi ?",
       reasons: {
         strategic: {
           title: "Vision stratégique des systèmes",
@@ -286,7 +326,7 @@ export const translations = {
           description: "Parcours éprouvé à travers divers projets et secteurs, des startups aux organisations établies.",
         },
         results: {
-          title: "Approche orientée résultat",
+          title: "Approche orientée performance",
           description: "Focus sur la livraison de résultats mesurables et de valeur tangible pour votre entreprise.",
         },
       },
@@ -318,8 +358,8 @@ export const translations = {
       responsibilities: "Responsabilités Clés",
     },
     projects: {
-      title: "Projets Phares",
-      subtitle: "Projets récents avec impact mesurable",
+      title: "Projets récents",
+      subtitle: "Réalisations concrètes avec impact mesurable",
       problem: "Problème",
       solution: "Solution",
       impact: "Impact",
@@ -353,18 +393,34 @@ export const translations = {
     },
     contact: {
       title: "Vous souhaitez structurer ou moderniser votre système d'information ?",
-      subtitle: "Discutons de votre projet.",
+      subtitle: "Contactez-moi pour une analyse de vos besoins et une proposition adaptée.",
       name: "Nom",
       email: "Email",
       message: "Message",
-      send: "Envoyer le Message",
+      send: "Planifier un échange",
       or: "Ou contactez-moi directement à",
       location: "Kinshasa, République Démocratique du Congo",
       availability: "Ouvert au travail à distance",
     },
+    shop: {
+      title: "Ma Boutique",
+      description: "Découvrez ma sélection d'équipements fiables pour vos projets IT et personnels.",
+      cta: "Visiter la boutique",
+    },
     footer: {
       rights: "Tous droits réservés.",
       built: "Construit avec Next.js et Tailwind CSS",
+      aboutTitle: "Qui suis-je ?",
+      aboutText:
+        "Je suis Franck KAPUYA MBALA, analyste et architecte de systèmes d'information, data analyst et consultant multi-plateformes. J'accompagne entreprises et organisations dans la structuration de systèmes fiables et l'optimisation des processus opérationnels.",
+      aboutLink: "En savoir plus",
+      contactTitle: "Contact",
+      shopTitle: "Boutique",
+      shopText: "Découvrez ma sélection d'équipements fiables",
+      shopLink: "Visiter la boutique",
+      linksTitle: "Liens rapides",
+      portfolio: "Portfolio",
+      scheduleCall: "Planifier un échange",
     },
     admin: {
       dashboard: "Tableau de Bord Admin",
