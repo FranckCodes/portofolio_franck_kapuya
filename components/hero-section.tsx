@@ -52,7 +52,14 @@ export function HeroSection() {
   }
 
   const technologies = ["Next.js", "React", "TypeScript", "Laravel", "SQL"]
-  const projects = ["BlueRDC", "Path Academia", "Campus RDC", "Foshekin"]
+
+  const partners = [
+    { name: "BlueRDC", logo: "/Partenaire_logo/blue-logo.svg" },
+    { name: "NLC", logo: "/Partenaire_logo/logo-nlc-blanc.png" },
+    { name: "Campus RDC", logo: "/Partenaire_logo/logo_campus.png" },
+    { name: "Foshekin Travel", logo: "/Partenaire_logo/foshekin_travel.png" },
+    { name: "Bantu Expertise", logo: "/Partenaire_logo/bantu-expertise-logo.png" },
+  ]
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-16">
@@ -114,24 +121,31 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Projects line - subtle */}
+        {/* Partners logos */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.2 }}
           className="mt-16 pt-8 border-t border-border/50"
         >
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground/60">
-            {projects.map((project, index) => (
-              <motion.span
-                key={project}
+          <p className="text-center text-xs text-muted-foreground/50 mb-6 uppercase tracking-widest">
+            {getTranslation(currentLang, "hero.partners") || "Partenaires"}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8">
+            {partners.map((partner, index) => (
+              <motion.div
+                key={partner.name}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4, delay: 1.4 + index * 0.1 }}
-                className="hover:text-muted-foreground transition-colors"
+                className="h-16 flex items-center opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
               >
-                {project}
-              </motion.span>
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="h-full w-auto max-w-[160px] object-contain"
+                />
+              </motion.div>
             ))}
           </div>
         </motion.div>
