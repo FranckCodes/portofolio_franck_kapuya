@@ -23,6 +23,7 @@ export const translations = {
         "Projects delivered for academic platforms, organizations, and operational management systems.",
       cta: "Discuss Your Project",
       viewWork: "View My Work",
+      partners: "They trusted me",
       stats: {
         experience: "Years Experience",
         projects: "Projects Completed",
@@ -244,6 +245,7 @@ export const translations = {
         "Projets réalisés pour plateformes académiques, organisations et systèmes de gestion opérationnelle.",
       cta: "Discuter de votre projet",
       viewWork: "Voir mes réalisations",
+      partners: "Ils m'ont fait confiance",
       stats: {
         experience: "Ans d'Expérience",
         projects: "Projets Réalisés",
