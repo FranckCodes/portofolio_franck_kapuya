@@ -359,6 +359,29 @@ export const projectsData = [
   },
   {
     id: 6,
+    title: "NLC RDC — Never Limit Children",
+    description: {
+      en: "Institutional website for a non-profit organization supporting children and young people with autism spectrum conditions in Kinshasa, DRC",
+      fr: "Site institutionnel pour une organisation à but non lucratif soutenant les enfants et jeunes atteints de troubles du spectre autistique à Kinshasa, RDC",
+    },
+    problem: {
+      en: "NLC needed a professional digital presence to raise awareness, share their programs, and reach families and partners",
+      fr: "NLC avait besoin d'une présence numérique professionnelle pour sensibiliser, partager ses programmes et atteindre les familles et partenaires",
+    },
+    solution: {
+      en: "Modern institutional website with multilingual content, services presentation, gallery, news section, and contact form",
+      fr: "Site institutionnel moderne avec contenu multilingue, présentation des services, galerie, section actualités et formulaire de contact",
+    },
+    impact: {
+      en: "500+ children supported, 98% family satisfaction rate, and increased visibility for the organization and its partners across DRC",
+      fr: "Plus de 500 enfants accompagnés, 98% de satisfaction des familles, et visibilité accrue pour l'organisation et ses partenaires à travers la RDC",
+    },
+    image: "/projects/nlc_website.png",
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    link: "https://nlcrdc.org",
+  },
+  {
+    id: 7,
     title: "Art Exhibition Platform",
     description: {
       en: "E-commerce web platform for artists to showcase artwork with WhatsApp integration for direct communication",
