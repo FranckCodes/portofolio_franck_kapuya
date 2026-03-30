@@ -109,7 +109,7 @@ export function WhatsAppButton() {
     <>
       <script src="https://cdn.lordicon.com/lordicon.js" async />
 
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+      <div className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-50 flex flex-col items-end gap-2 max-w-[calc(100vw-2rem)]">
 
         {/* Chat bubble */}
         <AnimatePresence mode="wait">
@@ -132,7 +132,7 @@ export function WhatsAppButton() {
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 transition={{ type: "spring", stiffness: 400 }}
-                className="relative max-w-[230px] md:max-w-[260px] bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100 rounded-2xl rounded-br-sm px-4 py-3 shadow-2xl border border-zinc-100 dark:border-zinc-700"
+                className="relative max-w-[min(180px,calc(100vw-5rem))] sm:max-w-[230px] md:max-w-[260px] bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100 rounded-2xl rounded-br-sm px-3 py-2.5 sm:px-4 sm:py-3 shadow-2xl border border-zinc-100 dark:border-zinc-700"
                 style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12)" }}
               >
                 {/* Close */}
@@ -157,7 +157,7 @@ export function WhatsAppButton() {
                     ))}
                   </span>
                 ) : (
-                  <p className="text-sm leading-snug">
+                  <p className="text-xs sm:text-sm leading-snug">
                     {typedText}
                     {isTyping && (
                       <motion.span

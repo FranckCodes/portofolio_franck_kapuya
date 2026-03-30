@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight, TrendingUp, Users, Zap, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { getTranslation, type Language } from "@/lib/i18n"
 
 const stats = [
@@ -39,26 +38,29 @@ export function HeroSection() {
   ]
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-16 overflow-hidden">
-      {/* Background gradient blobs */}
+    <section id="home" className="relative min-h-screen flex items-center pt-16 overflow-x-hidden">
+      {/* Background blobs */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-accent/10 blur-3xl" />
         <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 py-20">
-        <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-          {/* Left content */}
+          {/* ── Left content ── */}
           <motion.div
-            className="space-y-8"
+            className="space-y-6 text-center lg:text-left"
             initial="hidden"
             animate="visible"
             variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
           >
             {/* Availability badge */}
-            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}>
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+              className="flex justify-center lg:justify-start"
+            >
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 text-accent text-sm font-medium">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 {getTranslation(currentLang, "hero.available")}
@@ -70,9 +72,9 @@ export function HeroSection() {
               className="space-y-4"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight">
                 {getTranslation(currentLang, "hero.title.line1")}{" "}
-                <span className="relative">
+                <span className="relative inline-block">
                   <span className="text-accent">{getTranslation(currentLang, "hero.title.highlight")}</span>
                   <motion.span
                     className="absolute -bottom-1 left-0 h-0.5 bg-accent rounded-full"
@@ -83,20 +85,20 @@ export function HeroSection() {
                 </span>{" "}
                 {getTranslation(currentLang, "hero.title.line2")}
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
                 {getTranslation(currentLang, "hero.subtitle")}
               </p>
             </motion.div>
 
-            {/* 3 service pills */}
+            {/* Service pills */}
             <motion.div
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap justify-center lg:justify-start gap-2"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
             >
               {services.map((s) => (
                 <span
                   key={s.key}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border text-sm font-medium shadow-sm"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card border border-border text-xs sm:text-sm font-medium shadow-sm"
                 >
                   <span>{s.icon}</span>
                   {getTranslation(currentLang, `hero.services.${s.key}`)}
@@ -106,23 +108,23 @@ export function HeroSection() {
 
             {/* CTAs */}
             <motion.div
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap justify-center lg:justify-start gap-3"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
             >
-              <Button asChild size="lg" className="gap-2 text-base px-8 shadow-lg shadow-primary/20">
+              <Button asChild size="lg" className="gap-2 shadow-lg shadow-primary/20">
                 <a href="#contact">
                   {getTranslation(currentLang, "hero.cta")}
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-base px-8">
+              <Button asChild variant="outline" size="lg">
                 <a href="#projects">{getTranslation(currentLang, "hero.viewWork")}</a>
               </Button>
             </motion.div>
 
-            {/* Social proof line */}
+            {/* Social proof */}
             <motion.p
-              className="text-sm text-muted-foreground flex items-center gap-2"
+              className="text-sm text-muted-foreground flex items-center justify-center lg:justify-start gap-2"
               variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.5 } } }}
             >
               <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
@@ -130,45 +132,67 @@ export function HeroSection() {
             </motion.p>
           </motion.div>
 
-          {/* Right content */}
+          {/* ── Right content ── */}
           <motion.div
-            className="relative"
+            className="relative flex flex-col items-center"
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            {/* Profile image */}
-            <div className="relative aspect-square max-w-lg mx-auto">
+            {/* Profile image — no overflowing absolute cards on mobile */}
+            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-3xl blur-2xl scale-95" />
-              <div className="relative bg-card rounded-3xl shadow-2xl overflow-hidden border border-border">
+              <div className="relative bg-card rounded-3xl shadow-2xl overflow-hidden border border-border aspect-square">
                 <img src="/profile.jpg" alt="Franck KAPUYA MBALA" className="w-full h-full object-cover" />
               </div>
 
-              {/* Floating stat cards */}
+              {/* Floating stat cards — hidden on small screens, visible from md */}
               {stats.map((stat, i) => (
                 <motion.div
                   key={stat.labelKey}
-                  className="absolute bg-card border border-border rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3"
+                  className="hidden md:flex absolute bg-card border border-border rounded-xl px-3 py-2 shadow-xl items-center gap-2"
                   style={{
-                    top: i === 0 ? "8%" : i === 1 ? "50%" : "auto",
-                    bottom: i === 2 ? "8%" : "auto",
-                    left: i === 1 ? "-18%" : "auto",
-                    right: i === 0 ? "-12%" : i === 2 ? "-12%" : "auto",
+                    top:    i === 0 ? "8%"  : i === 1 ? "50%" : "auto",
+                    bottom: i === 2 ? "8%"  : "auto",
+                    left:   i === 1 ? "-14%" : "auto",
+                    right:  i === 0 ? "-10%" : i === 2 ? "-10%" : "auto",
                   }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 1 + i * 0.15 }}
                 >
-                  <div className="w-9 h-9 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
-                    <stat.icon className="h-4 w-4 text-accent" />
+                  <div className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <stat.icon className="h-3.5 w-3.5 text-accent" />
                   </div>
                   <div>
-                    <p className="text-xl font-bold leading-none">{stat.value}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{getTranslation(currentLang, stat.labelKey)}</p>
+                    <p className="text-base font-bold leading-none">{stat.value}</p>
+                    <p className="text-[10px] text-muted-foreground mt-0.5 whitespace-nowrap">
+                      {getTranslation(currentLang, stat.labelKey)}
+                    </p>
                   </div>
                 </motion.div>
               ))}
             </div>
+
+            {/* Stats row — visible only on mobile, below the image */}
+            <motion.div
+              className="flex md:hidden justify-center gap-4 mt-6 w-full"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1 }}
+            >
+              {stats.map((stat) => (
+                <div
+                  key={stat.labelKey}
+                  className="flex flex-col items-center gap-1 bg-card border border-border rounded-xl px-3 py-2 shadow-sm flex-1"
+                >
+                  <p className="text-lg font-bold leading-none text-accent">{stat.value}</p>
+                  <p className="text-[10px] text-muted-foreground text-center leading-tight">
+                    {getTranslation(currentLang, stat.labelKey)}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
 
@@ -177,21 +201,25 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.4 }}
-          className="mt-20 pt-8 border-t border-border/50"
+          className="mt-16 pt-8 border-t border-border/50"
         >
-          <p className="text-center text-xs text-muted-foreground/50 mb-6 uppercase tracking-widest">
+          <p className="text-center text-xs text-muted-foreground/50 mb-5 uppercase tracking-widest">
             {getTranslation(currentLang, "hero.partners")}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8">
             {partners.map((partner, index) => (
               <motion.div
                 key={partner.name}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4, delay: 1.6 + index * 0.1 }}
-                className="h-16 flex items-center opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                className="h-10 sm:h-14 flex items-center opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
               >
-                <img src={partner.logo} alt={partner.name} className="h-full w-auto max-w-[160px] object-contain" />
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="h-full w-auto max-w-[100px] sm:max-w-[140px] object-contain"
+                />
               </motion.div>
             ))}
           </div>
