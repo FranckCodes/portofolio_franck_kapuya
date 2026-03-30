@@ -1,11 +1,26 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { getTranslation, type Language } from "@/lib/i18n"
+import { type Language } from "@/lib/i18n"
 
-const TYPING_TEXT = "Hi 👋 Need help? Chat with us now!"
-const TYPING_DELAY = 40 // ms per character
+// 2 message variations per language
+const MESSAGES = {
+  en: [
+    // Version 1 — conversion-focused
+    "🚀 Ready to get more clients? Let's build something that works.",
+    // Version 2 — friendly & conversational
+    "Hey 👋 I'm Franck. Got a project in mind? I'd love to hear about it!",
+  ],
+  fr: [
+    "🚀 Prêt à attirer plus de clients ? Construisons quelque chose qui fonctionne.",
+    "Hey 👋 Je suis Franck. Un projet en tête ? Je serais ravi d'en discuter !",
+  ],
+}
+
+const TYPING_DELAY = 38
+const BUBBLE_VISIBLE_MS = 9000   // how long bubble stays after typing finishes
+const LOOP_INTERVAL_MS = 22000   // time between re-appearances
 
 export function WhatsAppButton() {
   const [currentLang, setCurrentLang] = useState<Language>("en")
@@ -13,12 +28,17 @@ export function WhatsAppButton() {
   const [typedText, setTypedText] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const [dismissed, setDismissed] = useState(false)
+  const [msgIndex, setMsgIndex] = useState(0)
+  const [hovered, setHovered] = useState(false)
+
   const typingRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hideRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const loopRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const phoneNumber = "243827029543"
-  const message =
-    "Bonjour Franck, Je vous contacte pour discuter d'un projet où la structuration des systèmes, l'analyse des données et la fiabilité sont essentielles. J'aimerais en savoir plus sur vos services et comment vous pourriez accompagner notre organisation."
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+  const waMessage =
+    "Bonjour Franck, Je vous contacte pour discuter d'un projet. J'aimerais en savoir plus sur vos services."
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(waMessage)}`
 
   useEffect(() => {
     const stored = localStorage.getItem("language") as Language
@@ -28,88 +48,161 @@ export function WhatsAppButton() {
     return () => window.removeEventListener("languageChange", handleLang as EventListener)
   }, [])
 
-  // Show bubble after 2s, then type
-  useEffect(() => {
-    if (dismissed) return
-    const showTimer = setTimeout(() => {
-      setShowBubble(true)
-      setIsTyping(true)
-    }, 2000)
-    return () => clearTimeout(showTimer)
-  }, [dismissed])
+  const clearAllTimers = useCallback(() => {
+    if (typingRef.current) clearTimeout(typingRef.current)
+    if (hideRef.current) clearTimeout(hideRef.current)
+    if (loopRef.current) clearTimeout(loopRef.current)
+  }, [])
 
-  // Typing effect
-  useEffect(() => {
-    if (!isTyping) return
-    let i = 0
+  const startTyping = useCallback((text: string) => {
     setTypedText("")
+    setIsTyping(true)
+    let i = 0
     const type = () => {
-      if (i < TYPING_TEXT.length) {
-        setTypedText(TYPING_TEXT.slice(0, i + 1))
+      if (i < text.length) {
+        setTypedText(text.slice(0, i + 1))
         i++
         typingRef.current = setTimeout(type, TYPING_DELAY)
       } else {
         setIsTyping(false)
+        // auto-hide after visible duration, then loop with next message
+        hideRef.current = setTimeout(() => {
+          setShowBubble(false)
+          loopRef.current = setTimeout(() => {
+            setMsgIndex((prev) => (prev + 1) % 2)
+            setShowBubble(true)
+            setIsTyping(true)
+          }, LOOP_INTERVAL_MS)
+        }, BUBBLE_VISIBLE_MS)
       }
     }
-    typingRef.current = setTimeout(type, 600) // small pause before typing starts
-    return () => { if (typingRef.current) clearTimeout(typingRef.current) }
-  }, [isTyping])
+    typingRef.current = setTimeout(type, 500)
+  }, [])
+
+  // Initial trigger after 2.5s
+  useEffect(() => {
+    if (dismissed) return
+    const init = setTimeout(() => {
+      setShowBubble(true)
+      setIsTyping(true)
+    }, 2500)
+    return () => clearTimeout(init)
+  }, [dismissed])
+
+  // Run typing when showBubble + isTyping become true
+  useEffect(() => {
+    if (!showBubble || !isTyping) return
+    const text = MESSAGES[currentLang][msgIndex]
+    startTyping(text)
+    return clearAllTimers
+  }, [showBubble, isTyping, msgIndex, currentLang, startTyping, clearAllTimers])
+
+  const handleDismiss = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    clearAllTimers()
+    setShowBubble(false)
+    setDismissed(true)
+  }
 
   return (
     <>
-      {/* Lordicon script */}
       <script src="https://cdn.lordicon.com/lordicon.js" async />
 
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+
         {/* Chat bubble */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {showBubble && !dismissed && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.85 }}
+              key={msgIndex}
+              initial={{ opacity: 0, y: 12, scale: 0.88 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.85 }}
-              transition={{ type: "spring", stiffness: 300, damping: 22 }}
-              className="relative max-w-[220px] bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100 text-sm rounded-2xl rounded-br-sm px-4 py-3 shadow-xl border border-zinc-100 dark:border-zinc-700"
+              exit={{ opacity: 0, y: 8, scale: 0.92 }}
+              transition={{ type: "spring", stiffness: 320, damping: 24 }}
+              className="relative"
             >
-              {/* Close button */}
-              <button
-                onClick={() => setDismissed(true)}
-                className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-zinc-200 dark:bg-zinc-600 text-zinc-500 dark:text-zinc-300 text-xs flex items-center justify-center hover:bg-zinc-300 transition-colors"
-                aria-label="Close"
+              {/* Sender label */}
+              <div className="flex items-center gap-2 mb-1.5 px-1">
+                <span className="w-2 h-2 rounded-full bg-[#25D366]" />
+                <span className="text-xs text-muted-foreground font-medium">Franck</span>
+              </div>
+
+              {/* Bubble */}
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 400 }}
+                className="relative max-w-[230px] md:max-w-[260px] bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100 rounded-2xl rounded-br-sm px-4 py-3 shadow-2xl border border-zinc-100 dark:border-zinc-700"
+                style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12)" }}
               >
-                ×
-              </button>
+                {/* Close */}
+                <button
+                  onClick={handleDismiss}
+                  className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-zinc-200 dark:bg-zinc-600 text-zinc-500 dark:text-zinc-300 text-xs flex items-center justify-center hover:bg-zinc-300 dark:hover:bg-zinc-500 transition-colors z-10"
+                  aria-label="Close"
+                >
+                  ×
+                </button>
 
-              {/* Typing dots or text */}
-              {isTyping && typedText.length === 0 ? (
-                <span className="flex gap-1 items-center h-4">
-                  {[0, 1, 2].map((i) => (
-                    <motion.span
-                      key={i}
-                      className="w-1.5 h-1.5 rounded-full bg-[#25D366]"
-                      animate={{ y: [0, -4, 0] }}
-                      transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
-                    />
-                  ))}
-                </span>
-              ) : (
-                <span>
-                  {typedText}
-                  {isTyping && (
-                    <motion.span
-                      className="inline-block w-0.5 h-3.5 bg-zinc-400 ml-0.5 align-middle"
-                      animate={{ opacity: [1, 0] }}
-                      transition={{ duration: 0.5, repeat: Infinity }}
-                    />
-                  )}
-                </span>
-              )}
+                {/* Typing dots (before first char) */}
+                {isTyping && typedText.length === 0 ? (
+                  <span className="flex gap-1 items-center h-5">
+                    {[0, 1, 2].map((i) => (
+                      <motion.span
+                        key={i}
+                        className="w-2 h-2 rounded-full bg-[#25D366]"
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ duration: 0.55, repeat: Infinity, delay: i * 0.18 }}
+                      />
+                    ))}
+                  </span>
+                ) : (
+                  <p className="text-sm leading-snug">
+                    {typedText}
+                    {isTyping && (
+                      <motion.span
+                        className="inline-block w-[2px] h-3.5 bg-zinc-400 ml-0.5 align-middle rounded-full"
+                        animate={{ opacity: [1, 0] }}
+                        transition={{ duration: 0.45, repeat: Infinity }}
+                      />
+                    )}
+                  </p>
+                )}
 
-              {/* Bubble tail */}
-              <span className="absolute bottom-0 right-[-6px] w-3 h-3 overflow-hidden">
-                <span className="absolute bottom-0 left-0 w-4 h-4 bg-white dark:bg-zinc-800 rounded-bl-full border-b border-l border-zinc-100 dark:border-zinc-700" />
-              </span>
+                {/* Timestamp */}
+                {!isTyping && typedText.length > 0 && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-[10px] text-zinc-400 dark:text-zinc-500 text-right mt-1.5"
+                  >
+                    {new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                  </motion.p>
+                )}
+
+                {/* Bubble tail */}
+                <span className="absolute bottom-0 right-[-7px] w-4 h-4 overflow-hidden pointer-events-none">
+                  <span className="absolute bottom-0 left-0 w-5 h-5 bg-white dark:bg-zinc-800 rounded-bl-full border-b border-l border-zinc-100 dark:border-zinc-700" />
+                </span>
+              </motion.div>
+
+              {/* Variation pill */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+                className="flex justify-end mt-1.5 gap-1"
+              >
+                {[0, 1].map((i) => (
+                  <span
+                    key={i}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                      i === msgIndex ? "bg-[#25D366]" : "bg-zinc-300 dark:bg-zinc-600"
+                    }`}
+                  />
+                ))}
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -120,43 +213,49 @@ export function WhatsAppButton() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Contact via WhatsApp"
-          className="relative flex items-center justify-center w-[70px] h-[70px] rounded-full bg-[#25D366] cursor-pointer"
+          onHoverStart={() => setHovered(true)}
+          onHoverEnd={() => setHovered(false)}
+          className="relative flex items-center justify-center w-[62px] h-[62px] md:w-[70px] md:h-[70px] rounded-full bg-[#25D366] cursor-pointer select-none"
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.5, type: "spring", stiffness: 200 }}
-          whileHover={{ scale: 1.12 }}
-          whileTap={{ scale: 0.93 }}
-          style={{
-            boxShadow: "0 0 0 0 rgba(37,211,102,0.5)",
-          }}
+          transition={{ duration: 0.4, delay: 0.5, type: "spring", stiffness: 220 }}
+          whileHover={{ scale: 1.13 }}
+          whileTap={{ scale: 0.91 }}
+          style={{ boxShadow: "0 4px 24px rgba(37,211,102,0.45)" }}
         >
-          {/* Glow pulse ring */}
+          {/* Pulse rings */}
           <motion.span
             className="absolute inset-0 rounded-full bg-[#25D366]"
-            animate={{ scale: [1, 1.5, 1.5], opacity: [0.5, 0, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
+            animate={{ scale: [1, 1.55, 1.55], opacity: [0.45, 0, 0] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeOut" }}
           />
           <motion.span
             className="absolute inset-0 rounded-full bg-[#25D366]"
-            animate={{ scale: [1, 1.35, 1.35], opacity: [0.4, 0, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut", delay: 0.4 }}
+            animate={{ scale: [1, 1.3, 1.3], opacity: [0.35, 0, 0] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
           />
 
-          {/* Lordicon animated WhatsApp icon */}
-          <lord-icon
-            src="https://cdn.lordicon.com/dhcosedn.json"
-            trigger="loop"
-            delay="2000"
-            colors="primary:#ffffff,secondary:#ffffff"
-            style={{ width: "42px", height: "42px" }}
-          />
+          {/* Subtle bounce when not hovered */}
+          <motion.div
+            animate={hovered ? {} : { y: [0, -4, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="flex items-center justify-center"
+          >
+            <lord-icon
+              src="https://cdn.lordicon.com/dhcosedn.json"
+              trigger="loop"
+              delay="2500"
+              colors="primary:#ffffff,secondary:#ffffff"
+              style={{ width: "40px", height: "40px" }}
+            />
+          </motion.div>
 
           {/* Notification badge */}
           <motion.span
-            className="absolute top-1 right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center border-2 border-white"
+            className="absolute top-0.5 right-0.5 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center border-2 border-white dark:border-zinc-900"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ delay: 2.2, type: "spring", stiffness: 400 }}
+            transition={{ delay: 2.5, type: "spring", stiffness: 500 }}
           >
             1
           </motion.span>

@@ -9,6 +9,7 @@ export const translations = {
   en: {
     nav: {
       home: "Home",
+      services: "Services",
       method: "Approach",
       projects: "Projects",
       expertise: "Expertise",
@@ -16,18 +17,86 @@ export const translations = {
     },
     hero: {
       greeting: "Hello, I'm",
-      title: "Reliable systems for controlled decisions.",
+      available: "Available for new projects",
+      title: {
+        line1: "I build digital systems that",
+        highlight: "grow your business",
+        line2: "and drive real results.",
+      },
       subtitle:
-        "I support businesses and organizations in structuring information systems, strategic data analysis, and developing reliable and scalable multi-platform solutions.",
-      credibility:
-        "Projects delivered for academic platforms, organizations, and operational management systems.",
-      cta: "Discuss Your Project",
-      viewWork: "View My Work",
+        "Full-stack developer, marketing strategist & data analyst. I help businesses get more clients, automate operations, and make smarter decisions.",
+      credibility: "Trusted by 6+ organizations across DRC — from startups to established institutions.",
+      cta: "Start a Project",
+      viewWork: "See My Work",
       partners: "They trusted me",
+      services: {
+        web: "Web Development",
+        marketing: "Marketing & Growth",
+        data: "Data & Optimization",
+      },
       stats: {
         experience: "Years Experience",
-        projects: "Projects Completed",
+        projects: "Projects Delivered",
         technologies: "Technologies",
+      },
+    },
+    services: {
+      label: "What I Do",
+      title: "Three ways I grow your business",
+      subtitle: "Each service is designed to deliver measurable results — not just deliverables.",
+      popular: "Most Popular",
+      cta: "Get Started",
+      web: {
+        title: "Web Development",
+        description: "High-performance websites and web apps that convert visitors into paying clients.",
+        features: {
+          1: "Custom design tailored to your brand",
+          2: "Fast, SEO-optimized & mobile-first",
+          3: "Admin dashboard & CMS included",
+        },
+      },
+      marketing: {
+        title: "Marketing & Growth",
+        description: "Data-driven strategies to attract more clients and scale your revenue.",
+        features: {
+          1: "Social media & content strategy",
+          2: "Lead generation campaigns",
+          3: "Brand positioning & visibility",
+        },
+      },
+      data: {
+        title: "Data & Optimization",
+        description: "Turn your raw data into clear insights that drive better business decisions.",
+        features: {
+          1: "KPI dashboards & reporting",
+          2: "Process automation & optimization",
+          3: "Database design & management",
+        },
+      },
+    },
+    proof: {
+      title: "Results that speak for themselves",
+      subtitle: "Real numbers from real projects.",
+      metrics: {
+        projects: "Projects Delivered",
+        users: "End Users Served",
+        satisfaction: "Client Satisfaction",
+        years: "Years of Experience",
+      },
+      t1: {
+        name: "Foshekin Travel Team",
+        role: "Travel Agency, Kinshasa",
+        text: "Franck built our internal management system from scratch. It completely replaced our manual processes and saved us hours every week. Highly professional.",
+      },
+      t2: {
+        name: "NLC RDC",
+        role: "Non-Profit Organization",
+        text: "Our website now reflects the quality of our work. Franck understood our mission and delivered a platform that helps us reach more families and partners.",
+      },
+      t3: {
+        name: "Hope Systems & Finances",
+        role: "EdTech Company",
+        text: "Franck was instrumental in building Path Academia and Campus RDC. His technical skills and attention to detail made a real difference in our product quality.",
       },
     },
     aboutIntro: {
@@ -70,7 +139,10 @@ export const translations = {
       },
     },
     expertise: {
+      label: "Expertise",
       title: "Areas of Expertise",
+      subtitle: "Deep technical skills combined with business strategy to deliver real impact.",
+      learnMore: "Learn more",
       areas: {
         systems: {
           title: "Information Systems Design",
@@ -91,7 +163,10 @@ export const translations = {
       },
     },
     trust: {
-      title: "Why Work With Me?",
+      label: "Why Me",
+      title: "Why businesses choose to work with me",
+      description: "I don't just write code or run campaigns. I think like a business owner and deliver solutions that create real, measurable value.",
+      cta: "Let's Work Together",
       reasons: {
         strategic: {
           title: "Strategic Systems Vision",
@@ -231,6 +306,7 @@ export const translations = {
   fr: {
     nav: {
       home: "Accueil",
+      services: "Services",
       method: "Approche",
       projects: "Projets",
       expertise: "Expertise",
@@ -238,18 +314,86 @@ export const translations = {
     },
     hero: {
       greeting: "Bonjour, je suis",
-      title: "Des systèmes fiables pour des décisions maîtrisées.",
+      available: "Disponible pour de nouveaux projets",
+      title: {
+        line1: "Je construis des systèmes digitaux qui",
+        highlight: "font croître votre business",
+        line2: "et génèrent de vrais résultats.",
+      },
       subtitle:
-        "J'accompagne entreprises et organisations dans la structuration de systèmes d'information, l'analyse stratégique des données et le développement de solutions multi-plateformes fiables et évolutives.",
-      credibility:
-        "Projets réalisés pour plateformes académiques, organisations et systèmes de gestion opérationnelle.",
-      cta: "Discuter de votre projet",
-      viewWork: "Voir mes réalisations",
+        "Développeur full-stack, stratège marketing & analyste de données. J'aide les entreprises à obtenir plus de clients, automatiser leurs opérations et prendre de meilleures décisions.",
+      credibility: "Approuvé par 6+ organisations en RDC — des startups aux institutions établies.",
+      cta: "Démarrer un Projet",
+      viewWork: "Voir mes Réalisations",
       partners: "Ils m'ont fait confiance",
+      services: {
+        web: "Développement Web",
+        marketing: "Marketing & Croissance",
+        data: "Données & Optimisation",
+      },
       stats: {
         experience: "Ans d'Expérience",
-        projects: "Projets Réalisés",
+        projects: "Projets Livrés",
         technologies: "Technologies",
+      },
+    },
+    services: {
+      label: "Ce que je fais",
+      title: "Trois façons de faire croître votre business",
+      subtitle: "Chaque service est conçu pour livrer des résultats mesurables — pas juste des livrables.",
+      popular: "Le Plus Populaire",
+      cta: "Commencer",
+      web: {
+        title: "Développement Web",
+        description: "Sites web et applications performants qui convertissent les visiteurs en clients payants.",
+        features: {
+          1: "Design personnalisé adapté à votre marque",
+          2: "Rapide, optimisé SEO & mobile-first",
+          3: "Tableau de bord admin & CMS inclus",
+        },
+      },
+      marketing: {
+        title: "Marketing & Croissance",
+        description: "Stratégies basées sur les données pour attirer plus de clients et augmenter vos revenus.",
+        features: {
+          1: "Stratégie réseaux sociaux & contenu",
+          2: "Campagnes de génération de leads",
+          3: "Positionnement de marque & visibilité",
+        },
+      },
+      data: {
+        title: "Données & Optimisation",
+        description: "Transformez vos données brutes en insights clairs pour de meilleures décisions business.",
+        features: {
+          1: "Tableaux de bord KPI & reporting",
+          2: "Automatisation & optimisation des processus",
+          3: "Conception & gestion de bases de données",
+        },
+      },
+    },
+    proof: {
+      title: "Des résultats qui parlent d'eux-mêmes",
+      subtitle: "De vrais chiffres issus de vrais projets.",
+      metrics: {
+        projects: "Projets Livrés",
+        users: "Utilisateurs Finaux",
+        satisfaction: "Satisfaction Client",
+        years: "Ans d'Expérience",
+      },
+      t1: {
+        name: "Équipe Foshekin Travel",
+        role: "Agence de Voyage, Kinshasa",
+        text: "Franck a construit notre système de gestion interne de zéro. Il a complètement remplacé nos processus manuels et nous fait gagner des heures chaque semaine. Très professionnel.",
+      },
+      t2: {
+        name: "NLC RDC",
+        role: "Organisation à But Non Lucratif",
+        text: "Notre site reflète maintenant la qualité de notre travail. Franck a compris notre mission et livré une plateforme qui nous aide à atteindre plus de familles et de partenaires.",
+      },
+      t3: {
+        name: "Hope Systems & Finances",
+        role: "Entreprise EdTech",
+        text: "Franck a joué un rôle clé dans la construction de Path Academia et Campus RDC. Ses compétences techniques et son souci du détail ont vraiment fait la différence.",
       },
     },
     aboutIntro: {
@@ -292,7 +436,10 @@ export const translations = {
       },
     },
     expertise: {
+      label: "Expertise",
       title: "Domaines d'Expertise",
+      subtitle: "Des compétences techniques profondes combinées à la stratégie business pour un impact réel.",
+      learnMore: "En savoir plus",
       areas: {
         systems: {
           title: "Conception de SI",
@@ -313,7 +460,10 @@ export const translations = {
       },
     },
     trust: {
-      title: "Pourquoi travailler avec moi ?",
+      label: "Pourquoi Moi",
+      title: "Pourquoi les entreprises choisissent de travailler avec moi",
+      description: "Je ne fais pas que coder ou lancer des campagnes. Je pense comme un chef d'entreprise et livre des solutions qui créent une valeur réelle et mesurable.",
+      cta: "Travaillons Ensemble",
       reasons: {
         strategic: {
           title: "Vision stratégique des systèmes",

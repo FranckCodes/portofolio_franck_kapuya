@@ -2,8 +2,15 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Network, BarChart3, Code, Server } from "lucide-react"
+import { Network, BarChart3, Code, Server, ArrowRight } from "lucide-react"
 import { getTranslation, type Language } from "@/lib/i18n"
+
+const areas = [
+  { icon: Code, key: "development", accent: "from-blue-500/10 to-blue-600/5", border: "hover:border-blue-500/40" },
+  { icon: BarChart3, key: "data", accent: "from-violet-500/10 to-violet-600/5", border: "hover:border-violet-500/40" },
+  { icon: Network, key: "systems", accent: "from-emerald-500/10 to-emerald-600/5", border: "hover:border-emerald-500/40" },
+  { icon: Server, key: "infrastructure", accent: "from-orange-500/10 to-orange-600/5", border: "hover:border-orange-500/40" },
+]
 
 export function ExpertiseSection() {
   const [currentLang, setCurrentLang] = useState<Language>("en")
@@ -11,57 +18,67 @@ export function ExpertiseSection() {
   useEffect(() => {
     const stored = localStorage.getItem("language") as Language
     if (stored) setCurrentLang(stored)
-
-    const handleLanguageChange = (e: CustomEvent) => {
-      setCurrentLang(e.detail)
-    }
-
+    const handleLanguageChange = (e: CustomEvent) => setCurrentLang(e.detail)
     window.addEventListener("languageChange", handleLanguageChange as EventListener)
     return () => window.removeEventListener("languageChange", handleLanguageChange as EventListener)
   }, [])
 
-  const expertiseAreas = [
-    { icon: Network, key: "systems" },
-    { icon: BarChart3, key: "data" },
-    { icon: Code, key: "development" },
-    { icon: Server, key: "infrastructure" },
-  ]
-
   return (
-    <section id="expertise" className="py-20 bg-muted/30">
+    <section id="expertise" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto space-y-16">
+
           <motion.div
+            className="text-center space-y-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium border border-accent/20">
+              {getTranslation(currentLang, "expertise.label")}
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold">
               {getTranslation(currentLang, "expertise.title")}
             </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {getTranslation(currentLang, "expertise.subtitle")}
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {expertiseAreas.map((area, index) => (
-              <motion.div
-                key={area.key}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="p-6 bg-card rounded-lg border border-border hover:border-primary/50 transition-all hover:shadow-lg"
-              >
-                <area.icon className="h-10 w-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold mb-2">
-                  {getTranslation(currentLang, `expertise.areas.${area.key}.title`)}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {getTranslation(currentLang, `expertise.areas.${area.key}.description`)}
-                </p>
-              </motion.div>
-            ))}
+          <div className="grid md:grid-cols-2 gap-6">
+            {areas.map((area, index) => {
+              const Icon = area.icon
+              return (
+                <motion.div
+                  key={area.key}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -4 }}
+                  className={`group relative p-8 rounded-2xl bg-gradient-to-br ${area.accent} border border-border ${area.border} transition-all hover:shadow-xl cursor-default`}
+                >
+                  <div className="flex items-start gap-5">
+                    <div className="w-14 h-14 rounded-2xl bg-card border border-border flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                      <Icon className="h-7 w-7 text-accent" />
+                    </div>
+                    <div className="space-y-2 flex-1">
+                      <h3 className="text-xl font-bold">
+                        {getTranslation(currentLang, `expertise.areas.${area.key}.title`)}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {getTranslation(currentLang, `expertise.areas.${area.key}.description`)}
+                      </p>
+                      <a href="#contact" className="inline-flex items-center gap-1 text-xs text-accent font-medium mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {getTranslation(currentLang, "expertise.learnMore")}
+                        <ArrowRight className="h-3 w-3" />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </div>
