@@ -4,166 +4,207 @@ import { useState, useEffect, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { ExternalLink, ArrowRight } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getTranslation, type Language } from "@/lib/i18n"
 import { projectsData } from "@/lib/data"
 import Link from "next/link"
 
+const DISPLAYED = projectsData.slice(0, 4)
+
+// Individual card — tracks its own viewport proximity
+function ProjectCard({
+  project,
+  lang,
+  index,
+  onActive,
+  isActive,
+}: {
+  project: (typeof projectsData)[0]
+  lang: Language
+  index: number
+  onActive: (index: number) => void
+  isActive: boolean
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  // Fire onActive when card crosses the center threshold
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) onActive(index)
+      },
+      { threshold: 0.55 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [index, onActive])
+
+  const isInView = useInView(ref, { once: true, margin: "-80px" })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 }}
+    >
+      <motion.div
+        animate={{
+          scale: isActive ? 1 : 0.97,
+          opacity: isActive ? 1 : 0.55,
+        }}
+        whileHover={{ scale: 1.01, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 28 }}
+      >
+        <Card className="overflow-hidden border-border transition-shadow duration-300"
+          style={{ boxShadow: isActive ? "0 8px 40px rgba(0,0,0,0.10)" : "0 2px 12px rgba(0,0,0,0.04)" }}
+        >
+          <div className="grid md:grid-cols-2">
+            {/* Image */}
+            <div className="relative overflow-hidden bg-muted aspect-video md:aspect-auto md:min-h-[280px]">
+              <motion.img
+                src={project.image || "/placeholder.svg"}
+                alt={project.title}
+                loading="lazy"
+                className="w-full h-full object-cover"
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+              {/* Index badge */}
+              <div className="absolute top-3 left-3">
+                <span className="px-2.5 py-1 rounded-full bg-black/50 text-white text-xs font-bold">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+              {/* Tech badges */}
+              <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
+                {project.technologies.slice(0, 3).map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2 py-0.5 rounded-full bg-black/55 text-white text-[10px] font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Content */}
+            <CardContent className="p-5 sm:p-7 flex flex-col justify-between gap-4">
+              <div className="space-y-4">
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="text-xl sm:text-2xl font-bold leading-tight">{project.title}</h3>
+                  {isActive && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="flex-shrink-0 w-2 h-2 rounded-full bg-accent mt-2"
+                    />
+                  )}
+                </div>
+
+                <div className="space-y-3 text-sm">
+                  <div>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      {getTranslation(lang, "projects.problem")}
+                    </span>
+                    <p className="text-muted-foreground mt-1 leading-relaxed">
+                      {lang === "en" ? project.problem.en : project.problem.fr}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      {getTranslation(lang, "projects.solution")}
+                    </span>
+                    <p className="text-muted-foreground mt-1 leading-relaxed">
+                      {lang === "en" ? project.solution.en : project.solution.fr}
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-accent/5 border border-accent/20">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-accent">
+                      {getTranslation(lang, "projects.impact")}
+                    </span>
+                    <p className="text-foreground mt-1 leading-relaxed font-medium">
+                      {lang === "en" ? project.impact.en : project.impact.fr}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Button variant="outline" className="w-full gap-2 bg-transparent" asChild>
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                  {getTranslation(lang, "projects.viewProject")}
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              </Button>
+            </CardContent>
+          </div>
+        </Card>
+      </motion.div>
+    </motion.div>
+  )
+}
+
 export function ProjectsSection() {
   const [currentLang, setCurrentLang] = useState<Language>("en")
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [activeIndex, setActiveIndex] = useState(0)
+  const ctaRef = useRef<HTMLDivElement>(null)
+  const ctaInView = useInView(ctaRef, { once: true, margin: "-60px" })
 
   useEffect(() => {
     const stored = localStorage.getItem("language") as Language
     if (stored) setCurrentLang(stored)
-
-    const handleLanguageChange = (e: CustomEvent) => {
-      setCurrentLang(e.detail)
-    }
-
+    const handleLanguageChange = (e: CustomEvent) => setCurrentLang(e.detail)
     window.addEventListener("languageChange", handleLanguageChange as EventListener)
     return () => window.removeEventListener("languageChange", handleLanguageChange as EventListener)
   }, [])
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.2,
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    }),
-  }
-
-  const displayedProjects = projectsData.slice(0, 4)
-
   return (
-    <section id="projects" className="py-20" ref={ref}>
+    <section id="projects" className="py-20">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto space-y-12">
+        <div className="max-w-4xl mx-auto space-y-10">
+
+          {/* Header */}
           <motion.div
-            className="text-center space-y-4"
+            className="text-center space-y-3"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold">{getTranslation(currentLang, "projects.title")}</h2>
-            <p className="text-lg text-muted-foreground">{getTranslation(currentLang, "projects.subtitle")}</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+              {getTranslation(currentLang, "projects.title")}
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground">
+              {getTranslation(currentLang, "projects.subtitle")}
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {displayedProjects.map((project, index) => (
-              <motion.div
+          {/* Cards list */}
+          <div className="space-y-6">
+            {DISPLAYED.map((project, index) => (
+              <ProjectCard
                 key={project.id}
-                custom={index}
-                variants={cardVariants}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-              >
-                <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
-                  <Card className="overflow-hidden group hover:shadow-xl transition-shadow h-full">
-                    <motion.div
-                      className="relative aspect-video overflow-hidden bg-muted"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <img
-                        src={project.image || "/placeholder.svg"}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <motion.div
-                        className="absolute inset-0 bg-primary/20"
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </motion.div>
-                    <CardContent className="p-6 space-y-4">
-                      <motion.h3
-                        className="text-2xl font-bold"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                        transition={{ delay: index * 0.2 + 0.3 }}
-                      >
-                        {project.title}
-                      </motion.h3>
-                      
-                      <motion.div
-                        className="space-y-3 text-sm"
-                        initial={{ opacity: 0 }}
-                        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ delay: index * 0.2 + 0.4 }}
-                      >
-                        <div>
-                          <span className="font-semibold text-muted-foreground">
-                            {getTranslation(currentLang, "projects.problem")}:
-                          </span>
-                          <p className="text-muted-foreground mt-1">
-                            {currentLang === "en" ? project.problem.en : project.problem.fr}
-                          </p>
-                        </div>
-                        <div>
-                          <span className="font-semibold text-muted-foreground">
-                            {getTranslation(currentLang, "projects.solution")}:
-                          </span>
-                          <p className="text-muted-foreground mt-1">
-                            {currentLang === "en" ? project.solution.en : project.solution.fr}
-                          </p>
-                        </div>
-                        <div>
-                          <span className="font-semibold text-primary">
-                            {getTranslation(currentLang, "projects.impact")}:
-                          </span>
-                          <p className="text-foreground mt-1">
-                            {currentLang === "en" ? project.impact.en : project.impact.fr}
-                          </p>
-                        </div>
-                      </motion.div>
-
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech, i) => (
-                          <motion.div
-                            key={tech}
-                            initial={{ opacity: 0, scale: 0 }}
-                            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                            transition={{ delay: index * 0.2 + i * 0.05 + 0.5 }}
-                            whileHover={{ scale: 1.1 }}
-                          >
-                            <Badge variant="secondary">{tech}</Badge>
-                          </motion.div>
-                        ))}
-                      </div>
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                        transition={{ delay: index * 0.2 + 0.6 }}
-                        whileHover={{ scale: 1.02 }}
-                      >
-                        <Button variant="outline" className="w-full gap-2 bg-transparent" asChild>
-                          <a href={project.link}>
-                            {getTranslation(currentLang, "projects.viewProject")}
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        </Button>
-                      </motion.div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </motion.div>
+                project={project}
+                lang={currentLang}
+                index={index}
+                isActive={activeIndex === index}
+                onActive={setActiveIndex}
+              />
             ))}
           </div>
 
+          {/* CTA */}
           <motion.div
-            className="flex justify-center"
+            ref={ctaRef}
+            className="flex justify-center pt-2"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.8 }}
+            animate={ctaInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <Button asChild size="lg" className="gap-2">
               <Link href="/projects">
