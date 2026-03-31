@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight, TrendingUp, Users, Zap, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -18,8 +18,56 @@ const services = [
   { icon: "📊", key: "data" },
 ]
 
+const TYPING_WORDS = {
+  fr: ["entreprise", "activité", "produit", "marque", "acquisition clients"],
+  en: ["business", "activity", "product", "brand", "client acquisition"],
+}
+
+const TYPE_SPEED = 70   // ms per char
+const DELETE_SPEED = 40 // ms per char
+const PAUSE_AFTER = 1600 // ms pause when word is fully typed
+
+function useTypingEffect(words: string[]) {
+  const [displayed, setDisplayed] = useState("")
+  const [wordIndex, setWordIndex] = useState(0)
+  const [phase, setPhase] = useState<"typing" | "pausing" | "deleting">("typing")
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    const word = words[wordIndex]
+
+    if (phase === "typing") {
+      if (displayed.length < word.length) {
+        timeoutRef.current = setTimeout(
+          () => setDisplayed(word.slice(0, displayed.length + 1)),
+          TYPE_SPEED
+        )
+      } else {
+        timeoutRef.current = setTimeout(() => setPhase("pausing"), PAUSE_AFTER)
+      }
+    } else if (phase === "pausing") {
+      setPhase("deleting")
+    } else if (phase === "deleting") {
+      if (displayed.length > 0) {
+        timeoutRef.current = setTimeout(
+          () => setDisplayed(displayed.slice(0, -1)),
+          DELETE_SPEED
+        )
+      } else {
+        setWordIndex((i) => (i + 1) % words.length)
+        setPhase("typing")
+      }
+    }
+
+    return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current) }
+  }, [displayed, phase, wordIndex, words])
+
+  return displayed
+}
+
 export function HeroSection() {
   const [currentLang, setCurrentLang] = useState<Language>("en")
+  const typedWord = useTypingEffect(TYPING_WORDS[currentLang])
 
   useEffect(() => {
     const stored = localStorage.getItem("language") as Language
@@ -32,7 +80,7 @@ export function HeroSection() {
   const partners = [
     { name: "BlueRDC", logo: "/Partenaire_logo/blue-logo.svg" },
     { name: "NLC", logo: "/Partenaire_logo/logo-nlc-blanc.png" },
-    { name: "Campus RDC", logo: "/Partenaire_logo/logo_campus.jpg" },
+    { name: "Campus RDC", logo: "/Partenaire_logo/logo_campus.png" },
     { name: "Foshekin Travel", logo: "/Partenaire_logo/foshekin_travel.png" },
     { name: "Bantu Expertise", logo: "/Partenaire_logo/bantu-expertise-logo.png" },
   ]
@@ -72,15 +120,16 @@ export function HeroSection() {
               className="space-y-4"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] tracking-tight">
                 {getTranslation(currentLang, "hero.title.line1")}{" "}
-                <span className="relative inline-block">
-                  <span className="text-accent">{getTranslation(currentLang, "hero.title.highlight")}</span>
+                {/* Dynamic typing word */}
+                <span className="inline-block relative">
+                  <span className="text-accent">{typedWord}</span>
+                  {/* Blinking cursor */}
                   <motion.span
-                    className="absolute -bottom-1 left-0 h-0.5 bg-accent rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
+                    className="inline-block w-[3px] h-[0.85em] bg-accent align-middle ml-0.5 rounded-sm"
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.55, repeat: Infinity, repeatType: "reverse" }}
                   />
                 </span>{" "}
                 {getTranslation(currentLang, "hero.title.line2")}

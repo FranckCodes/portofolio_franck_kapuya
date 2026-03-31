@@ -19,8 +19,8 @@ export const translations = {
       greeting: "Hello, I'm",
       available: "Available for new projects",
       title: {
-        line1: "I build digital systems that",
-        highlight: "grow your business",
+        line1: "I build digital systems that grow your",
+        highlight: "business",
         line2: "and drive real results.",
       },
       subtitle:
@@ -316,8 +316,8 @@ export const translations = {
       greeting: "Bonjour, je suis",
       available: "Disponible pour de nouveaux projets",
       title: {
-        line1: "Je construis des systèmes digitaux qui",
-        highlight: "font croître votre business",
+        line1: "Je construis des systèmes digitaux qui font croître votre",
+        highlight: "business",
         line2: "et génèrent de vrais résultats.",
       },
       subtitle:
