@@ -242,6 +242,7 @@ export const experienceData = [
 ]
 
 export const projectsData = [
+  /* Path Academia — commenté temporairement
   {
     id: 1,
     title: "Path Academia",
@@ -265,6 +266,8 @@ export const projectsData = [
     technologies: ["Next.js", "React", "TypeScript", "Laravel", "SQL"],
     link: "#",
   },
+  */
+  /* Campus RDC — commenté temporairement
   {
     id: 2,
     title: "Campus RDC",
@@ -288,6 +291,7 @@ export const projectsData = [
     technologies: ["Next.js", "PWA", "React", "TypeScript"],
     link: "#",
   },
+  */
   {
     id: 3,
     title: "BlueRDC",
@@ -334,6 +338,7 @@ export const projectsData = [
     technologies: ["Laravel", "PHP", "SQL", "Bootstrap"],
     link: "#",
   },
+  /* Help Desk — commenté temporairement
   {
     id: 5,
     title: "Help Desk",
@@ -357,6 +362,7 @@ export const projectsData = [
     technologies: ["Next.js", "React", "TypeScript", "Laravel", "SQL"],
     link: "#",
   },
+  */
   {
     id: 6,
     title: "NLC RDC — Never Limit Children",

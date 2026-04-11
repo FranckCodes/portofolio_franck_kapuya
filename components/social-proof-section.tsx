@@ -36,7 +36,7 @@ const metrics = [
 const testimonials = [
   { nameKey: "proof.t1.name", roleKey: "proof.t1.role", textKey: "proof.t1.text", rating: 5 },
   { nameKey: "proof.t2.name", roleKey: "proof.t2.role", textKey: "proof.t2.text", rating: 5 },
-  { nameKey: "proof.t3.name", roleKey: "proof.t3.role", textKey: "proof.t3.text", rating: 5 },
+  // { nameKey: "proof.t3.name", roleKey: "proof.t3.role", textKey: "proof.t3.text", rating: 5 },
 ]
 
 export function SocialProofSection() {
