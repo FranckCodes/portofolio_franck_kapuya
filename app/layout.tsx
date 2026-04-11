@@ -29,16 +29,21 @@ export const metadata: Metadata = {
     "développeur full stack Afrique",
   ],
   authors: [{ name: "Franck Kapuya" }],
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  metadataBase: new URL("https://www.franckkapuya.com"),
   openGraph: {
     title: "Boostez votre business avec un site web performant 🚀",
     description: "Sites web, marketing et data pour générer plus de clients et augmenter vos revenus.",
     url: "https://www.franckkapuya.com",
+    siteName: "Franck Kapuya",
     type: "website",
     locale: "fr_FR",
     images: [
       {
-        url: "https://www.franckkapuya.com/preview.jpg",
+        url: "/preview.jpg",
         width: 1200,
         height: 630,
         alt: "Franck Kapuya - Développeur Full Stack",
@@ -49,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Développeur Full Stack & Marketing | Générer plus de clients",
     description: "Je crée des systèmes digitaux qui boostent votre croissance.",
-    images: ["https://www.franckkapuya.com/preview.jpg"],
+    images: ["/preview.jpg"],
   },
 }
 
@@ -59,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="fr" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
         <meta name="theme-color" content="#0f172a" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-54DFL2VZ7G"></script>

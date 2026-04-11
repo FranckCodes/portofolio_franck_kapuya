@@ -80,7 +80,7 @@ export function HeroSection() {
   const partners = [
     { name: "BlueRDC", logo: "/Partenaire_logo/blue-logo.svg" },
     { name: "NLC", logo: "/Partenaire_logo/logo-nlc-blanc.png" },
-    { name: "Campus RDC", logo: "/Partenaire_logo/logo_campus.png" },
+    // { name: "Campus RDC", logo: "/Partenaire_logo/logo_campus.png" },
     { name: "Foshekin Travel", logo: "/Partenaire_logo/foshekin_travel.png" },
     { name: "Bantu Expertise", logo: "/Partenaire_logo/bantu-expertise-logo.png" },
   ]
