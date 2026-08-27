@@ -45,8 +45,7 @@ export function Footer() {
               <div className="flex items-start gap-2">
                 <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                 <a href="mailto:contact@franckkapuya.com" className="text-muted-foreground hover:text-primary transition-colors">
-                  contact@franckkapuya.com
-                </a>
+                  franckkapuya13@gmail.com                </a>
               </div>
               <div className="flex items-start gap-2">
                 <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />

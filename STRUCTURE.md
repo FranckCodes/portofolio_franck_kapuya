@@ -67,7 +67,7 @@
 - **Sous-titre**: Contactez-moi pour une analyse de vos besoins et une proposition adaptée.
 - **CTA**: Planifier un échange
 - **Coordonnées**:
-  - Email: contact@franckkapuya.com
+  - Email: franckkapuya13@gmail.com
   - Téléphone: +243 827 029 543
   - Adresse: 27bis Rue Wenge, Kinshasa, DRC
   - Note: Ouvert au travail à distance
@@ -85,8 +85,7 @@
 - Lien "En savoir plus"
 
 #### Colonne 2 - Contact
-- Email: contact@franckkapuya.com
-- Téléphone: +243 827 029 543
+- Email: franckkapuya13@gmail.com- Téléphone: +243 827 029 543
 - Adresse: 27bis Rue Wenge, Kinshasa, DRC
 
 #### Colonne 3 - Boutique
