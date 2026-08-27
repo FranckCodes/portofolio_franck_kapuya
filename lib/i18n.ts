@@ -255,6 +255,10 @@ export const translations = {
       or: "Or reach me directly at",
       location: "Kinshasa, Democratic Republic of the Congo",
       availability: "Open to remote work",
+      sending: "Sending...",
+      success: "Message sent successfully",
+      error: "Error sending message",
+      errorMissing: "Please fill all fields",
     },
     shop: {
       title: "My Shop",
@@ -553,6 +557,10 @@ export const translations = {
       or: "Ou contactez-moi directement à",
       location: "Kinshasa, République Démocratique du Congo",
       availability: "Ouvert au travail à distance",
+      sending: "Envoi...",
+      success: "Message envoyé avec succès",
+      error: "Erreur lors de l'envoi du message",
+      errorMissing: "Veuillez remplir tous les champs",
     },
     shop: {
       title: "Ma Boutique",

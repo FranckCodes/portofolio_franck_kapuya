@@ -8,11 +8,18 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { getTranslation, type Language } from "@/lib/i18n"
+import { useToast } from "@/hooks/use-toast"
 
 export function ContactSection() {
   const [currentLang, setCurrentLang] = useState<Language>("en")
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { toast } = useToast()
+
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const stored = localStorage.getItem("language") as Language
@@ -91,8 +98,7 @@ export function ContactSection() {
                             href="mailto:contact@franckkapuya.com"
                             className="text-muted-foreground hover:text-accent transition-colors"
                           >
-                            contact@franckkapuya.com
-                          </a>
+                            franckkapuya13@gmail.com                          </a>
                         </div>
                       </motion.div>
 
@@ -154,13 +160,44 @@ export function ContactSection() {
               <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
                 <Card>
                   <CardContent className="p-6">
-                    <form className="space-y-4">
+                    <form
+                      className="space-y-4"
+                      onSubmit={async (e) => {
+                        e.preventDefault()
+                        if (!email || !message || !name) {
+                          toast({ title: getTranslation(currentLang, "contact.errorMissing") || "Please fill all fields", description: "" })
+                          return
+                        }
+                        try {
+                          setLoading(true)
+                          const res = await fetch("/api/contact", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ name, email, message }),
+                          })
+
+                          if (res.ok) {
+                            toast({ title: getTranslation(currentLang, "contact.success") || "Message sent", description: "Merci, je vous répondrai bientôt." })
+                            setName("")
+                            setEmail("")
+                            setMessage("")
+                          } else {
+                            const data = await res.json().catch(() => ({}))
+                            toast({ title: getTranslation(currentLang, "contact.error") || "Error sending message", description: data?.error || "Try again later." })
+                          }
+                        } catch (err) {
+                          toast({ title: getTranslation(currentLang, "contact.error") || "Error sending message", description: "Try again later." })
+                        } finally {
+                          setLoading(false)
+                        }
+                      }}
+                    >
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                         transition={{ delay: 0.4 }}
                       >
-                        <Input placeholder={getTranslation(currentLang, "contact.name")} className="w-full" />
+                        <Input placeholder={getTranslation(currentLang, "contact.name")} className="w-full" value={name} onChange={(e) => setName((e as any).target.value)} />
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
@@ -171,6 +208,8 @@ export function ContactSection() {
                           type="email"
                           placeholder={getTranslation(currentLang, "contact.email")}
                           className="w-full"
+                          value={email}
+                          onChange={(e) => setEmail((e as any).target.value)}
                         />
                       </motion.div>
                       <motion.div
@@ -182,6 +221,8 @@ export function ContactSection() {
                           placeholder={getTranslation(currentLang, "contact.message")}
                           rows={5}
                           className="w-full resize-none"
+                          value={message}
+                          onChange={(e) => setMessage((e as any).target.value)}
                         />
                       </motion.div>
                       <motion.div
@@ -191,8 +232,8 @@ export function ContactSection() {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <Button type="submit" className="w-full gap-2">
-                          {getTranslation(currentLang, "contact.send")}
+                        <Button type="submit" className="w-full gap-2" disabled={loading}>
+                          {loading ? getTranslation(currentLang, "contact.sending") ?? "Sending..." : getTranslation(currentLang, "contact.send")}
                           <Send className="h-4 w-4" />
                         </Button>
                       </motion.div>
