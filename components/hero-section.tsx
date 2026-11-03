@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight, TrendingUp, Users, Zap, CheckCircle } from "lucide-react"
+import { BookCallButton } from "@/components/book-call-button"
 import { Button } from "@/components/ui/button"
 import { getTranslation, type Language } from "@/lib/i18n"
 
@@ -169,6 +170,9 @@ export function HeroSection() {
               <Button asChild variant="outline" size="lg">
                 <a href="#projects">{getTranslation(currentLang, "hero.viewWork")}</a>
               </Button>
+              <BookCallButton lang={currentLang} variant="outline" size="lg" className="gap-2">
+                {getTranslation(currentLang, "hero.bookCall")}
+              </BookCallButton>
             </motion.div>
 
             {/* Social proof */}

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { Mail, MapPin, Phone, Send } from "lucide-react"
+import { BookCallButton } from "@/components/book-call-button"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -150,6 +151,12 @@ export function ContactSection() {
                     </CardContent>
                   </Card>
                 </motion.div>
+              </motion.div>
+
+              <motion.div variants={itemVariants}>
+                <BookCallButton lang={currentLang} size="lg" className="w-full gap-2">
+                  {getTranslation(currentLang, "contact.bookCall")}
+                </BookCallButton>
               </motion.div>
             </motion.div>
 
