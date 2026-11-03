@@ -19,6 +19,7 @@ export function ContactSection() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
+  const [website, setWebsite] = useState("")
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -95,10 +96,11 @@ export function ContactSection() {
                         <div>
                           <div className="font-semibold mb-1">Email</div>
                           <a
-                            href="mailto:contact@franckkapuya.com"
+                            href="mailto:franckkapuya13@gmail.com"
                             className="text-muted-foreground hover:text-accent transition-colors"
                           >
-                            franckkapuya13@gmail.com                          </a>
+                            franckkapuya13@gmail.com
+                          </a>
                         </div>
                       </motion.div>
 
@@ -165,7 +167,7 @@ export function ContactSection() {
                       onSubmit={async (e) => {
                         e.preventDefault()
                         if (!email || !message || !name) {
-                          toast({ title: getTranslation(currentLang, "contact.errorMissing") || "Please fill all fields", description: "" })
+                          toast({ variant: "destructive", title: getTranslation(currentLang, "contact.errorMissing") })
                           return
                         }
                         try {
@@ -173,25 +175,38 @@ export function ContactSection() {
                           const res = await fetch("/api/contact", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ name, email, message }),
+                            body: JSON.stringify({ name, email, message, website }),
                           })
 
                           if (res.ok) {
-                            toast({ title: getTranslation(currentLang, "contact.success") || "Message sent", description: "Merci, je vous répondrai bientôt." })
+                            toast({ title: getTranslation(currentLang, "contact.success"), description: getTranslation(currentLang, "contact.successDescription") })
                             setName("")
                             setEmail("")
                             setMessage("")
                           } else {
-                            const data = await res.json().catch(() => ({}))
-                            toast({ title: getTranslation(currentLang, "contact.error") || "Error sending message", description: data?.error || "Try again later." })
+                            toast({
+                              variant: "destructive",
+                              title: getTranslation(currentLang, "contact.error"),
+                              description: getTranslation(currentLang, res.status === 400 ? "contact.errorInvalid" : "contact.errorDescription"),
+                            })
                           }
                         } catch (err) {
-                          toast({ title: getTranslation(currentLang, "contact.error") || "Error sending message", description: "Try again later." })
+                          toast({ variant: "destructive", title: getTranslation(currentLang, "contact.error"), description: getTranslation(currentLang, "contact.errorDescription") })
                         } finally {
                           setLoading(false)
                         }
                       }}
                     >
+                      <input
+                        type="text"
+                        name="website"
+                        className="hidden"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        aria-hidden="true"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                      />
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}

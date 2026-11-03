@@ -60,7 +60,7 @@
 ### 9. SHOP SECTION
 - **Titre**: Ma Boutique
 - **Description**: Découvrez ma sélection d'équipements fiables pour vos projets IT et personnels
-- **Lien**: https://frack-kapuya.store.vercel.app
+- **Lien**: /shop (page en construction)
 
 ### 10. CONTACT SECTION
 - **Titre**: Vous souhaitez structurer ou moderniser votre système d'information ?

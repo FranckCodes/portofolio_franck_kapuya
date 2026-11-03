@@ -1,42 +1,66 @@
 import { NextResponse } from "next/server"
-import sgMail from "@sendgrid/mail"
+import nodemailer from "nodemailer"
+import { z } from "zod"
 
-if (!process.env.SENDGRID_API_KEY) {
-  console.warn("SENDGRID_API_KEY is not set")
-} else {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const contactSchema = z.object({
+  name: z.string().trim().min(1).max(100),
+  email: z.string().trim().email().max(254),
+  message: z.string().trim().min(1).max(5000),
+  // Honeypot: hidden from visitors, only bots fill it in
+  website: z.string().optional(),
+})
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
 }
 
 export async function POST(req: Request) {
+  const parsed = contactSchema.safeParse(await req.json().catch(() => null))
+
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Invalid fields" }, { status: 400 })
+  }
+
+  const { name, email, message, website } = parsed.data
+
+  if (website) {
+    return NextResponse.json({ ok: true })
+  }
+
+  const user = process.env.GMAIL_USER
+  const pass = process.env.GMAIL_APP_PASSWORD
+  const to = process.env.CONTACT_TO || user
+
+  if (!user || !pass || !to) {
+    console.error("Gmail is not configured")
+    return NextResponse.json({ error: "Email service unavailable" }, { status: 500 })
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: { user, pass },
+  })
+
   try {
-    const body = await req.json()
-    const { name, email, message } = body || {}
-
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: "Missing fields" }, { status: 400 })
-    }
-
-    const to = process.env.SENDGRID_TO || process.env.SENDGRID_FROM
-    const from = process.env.SENDGRID_FROM
-
-    if (!to || !from) {
-      return NextResponse.json({ error: "Email destination not configured" }, { status: 500 })
-    }
-
-    const msg = {
+    await transporter.sendMail({
       to,
-      from,
-      subject: `Nouveau message du site — ${name}`,
+      from: { name: "Site franckkapuya.com", address: user },
+      subject: `Nouveau message du site — ${name.replace(/[\r\n]+/g, " ")}`,
       replyTo: email,
       text: `From: ${name} <${email}>\n\n${message}`,
-      html: `<p><strong>From:</strong> ${name} &lt;${email}&gt;</p><p>${message.replace(/\n/g, "<br/>")}</p>`,
-    }
-
-    await sgMail.send(msg)
+      html: `<p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p><p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>`,
+    })
 
     return NextResponse.json({ ok: true })
-  } catch (err: any) {
+  } catch (err) {
     console.error(err)
-    return NextResponse.json({ error: err?.message || "Internal error" }, { status: 500 })
+    return NextResponse.json({ error: "Email could not be sent" }, { status: 500 })
   }
 }
