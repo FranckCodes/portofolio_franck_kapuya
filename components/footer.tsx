@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Github, Linkedin, Mail, Phone, MapPin, ShoppingBag, ExternalLink, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { getTranslation, type Language } from "@/lib/i18n"
+import Link from "next/link"
 
 export function Footer() {
   const [currentLang, setCurrentLang] = useState<Language>("en")
@@ -44,8 +45,8 @@ export function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-start gap-2">
                 <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <a href="mailto:contact@franckkapuya.com" className="text-muted-foreground hover:text-primary transition-colors">
-                  contact@franckkapuya.com
+                <a href="mailto:franckkapuya13@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                  franckkapuya13@gmail.com
                 </a>
               </div>
               <div className="flex items-start gap-2">
@@ -68,11 +69,10 @@ export function Footer() {
               {getTranslation(currentLang, "footer.shopText")}
             </p>
             <Button asChild variant="outline" size="sm" className="gap-2">
-              <a href="https://frack-kapuya.store.vercel.app" target="_blank" rel="noopener noreferrer">
+              <Link href="/shop">
                 <ShoppingBag className="h-4 w-4" />
                 {getTranslation(currentLang, "footer.shopLink")}
-                <ExternalLink className="h-3 w-3" />
-              </a>
+              </Link>
             </Button>
           </div>
 
@@ -94,13 +94,13 @@ export function Footer() {
                   </a>
                 </Button>
                 <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.linkedin.com/in/franckkapuya/" target="_blank" rel="noopener noreferrer">
                     <Linkedin className="h-4 w-4" />
                     <span className="sr-only">LinkedIn</span>
                   </a>
                 </Button>
                 <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
-                  <a href="mailto:contact@franckkapuya.com">
+                  <a href="mailto:franckkapuya13@gmail.com">
                     <Mail className="h-4 w-4" />
                     <span className="sr-only">Email</span>
                   </a>

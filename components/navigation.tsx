@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "./theme-toggle"
@@ -13,6 +14,20 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [currentLang, setCurrentLang] = useState<Language>("en")
   const [activeSection, setActiveSection] = useState("home")
+  // Sections only exist on the home page: other pages must link back to it
+  const isHome = usePathname() === "/"
+  const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`)
+
+  // The saved language is applied after the first render and shifts the layout,
+  // so the section targeted by the URL hash has to be scrolled to again
+  useEffect(() => {
+    if (!isHome) return
+    const timer = setTimeout(() => {
+      const id = window.location.hash.slice(1)
+      if (id) document.getElementById(id)?.scrollIntoView()
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [isHome])
 
   useEffect(() => {
     const stored = localStorage.getItem("language") as Language
@@ -91,7 +106,7 @@ export function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Link href="#home" className="text-xl font-bold text-primary">
+            <Link href={sectionHref("home")} className="text-xl font-bold text-primary">
               FK
             </Link>
           </motion.div>
@@ -111,13 +126,13 @@ export function Navigation() {
                 transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
               >
                 <Link
-                  href={`#${item.id}`}
+                  href={sectionHref(item.id)}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors relative ${
-                    activeSection === item.id ? "text-accent" : "text-muted-foreground hover:text-foreground"
+                    isHome && activeSection === item.id ? "text-accent" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {item.label}
-                  {activeSection === item.id && (
+                  {isHome && activeSection === item.id && (
                     <motion.div
                       className="absolute inset-0 bg-accent/10 rounded-md -z-10"
                       layoutId="activeSection"
@@ -156,10 +171,10 @@ export function Navigation() {
               {navItems.map((item) => (
                 <motion.div key={item.id} variants={mobileItemVariants}>
                   <Link
-                    href={`#${item.id}`}
+                    href={sectionHref(item.id)}
                     onClick={() => setIsOpen(false)}
                     className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                      activeSection === item.id
+                      isHome && activeSection === item.id
                         ? "text-accent bg-accent/10"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     }`}

@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ShoppingBag, ExternalLink } from "lucide-react"
+import { ShoppingBag, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { getTranslation, type Language } from "@/lib/i18n"
+import Link from "next/link"
 
 export function ShopSection() {
   const [currentLang, setCurrentLang] = useState<Language>("en")
@@ -48,10 +49,10 @@ export function ShopSection() {
                       {getTranslation(currentLang, "shop.description")}
                     </p>
                     <Button asChild size="lg" className="gap-2">
-                      <a href="https://frack-kapuya.store.vercel.app" target="_blank" rel="noopener noreferrer">
+                      <Link href="/shop">
                         {getTranslation(currentLang, "shop.cta")}
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
                     </Button>
                   </div>
                 </div>
