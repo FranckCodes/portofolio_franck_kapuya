@@ -28,6 +28,7 @@ export const translations = {
       credibility: "Trusted by 6+ organizations across DRC — from startups to established institutions.",
       cta: "Start a Project",
       viewWork: "See My Work",
+      bookCall: "Book a 30-min Call",
       partners: "They trusted me",
       services: {
         web: "Web Development",
@@ -252,6 +253,7 @@ export const translations = {
       email: "Email",
       message: "Message",
       send: "Schedule an Exchange",
+      bookCall: "Book a 30-min Call",
       or: "Or reach me directly at",
       location: "Kinshasa, Democratic Republic of the Congo",
       availability: "Open to remote work",
@@ -316,6 +318,7 @@ export const translations = {
       credibility: "Approuvé par 6+ organisations en RDC — des startups aux institutions établies.",
       cta: "Démarrer un Projet",
       viewWork: "Voir mes Réalisations",
+      bookCall: "Réserver un appel de 30 min",
       partners: "Ils m'ont fait confiance",
       services: {
         web: "Développement Web",
@@ -541,6 +544,7 @@ export const translations = {
       email: "Email",
       message: "Message",
       send: "Planifier un échange",
+      bookCall: "Réserver un appel de 30 min",
       or: "Ou contactez-moi directement à",
       location: "Kinshasa, République Démocratique du Congo",
       availability: "Ouvert au travail à distance",
